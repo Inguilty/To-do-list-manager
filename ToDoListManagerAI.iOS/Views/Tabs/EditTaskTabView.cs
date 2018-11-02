@@ -21,11 +21,6 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             _editButton = new UIButton();
         }
 
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-        }
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -49,18 +44,7 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
                     ViewModel.Deadline = DateTime.MinValue;
                 }
             };
-
-            btnEditDeadline.TouchDown += (args, e) =>
-            {
-                if (datePckrDeadline.Hidden)
-                {
-                    datePckrDeadline.Hidden = false;
-                }
-                else
-                {
-                    datePckrDeadline.Hidden = true;
-                }
-            };
+            btnEditDeadline.TouchDown += (args, e) => { datePckrDeadline.Hidden = !datePckrDeadline.Hidden; };
             datePckrDeadline.ValueChanged += (args, e) =>
             {
                 if (ViewModel.TskStatus == (byte)TaskStatus.Done)
@@ -72,25 +56,23 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
                     swtchStatus.RemoveSegmentAtIndex((byte)TaskStatus.Done, true);
                 }
             };
-
             datePckrDeadline.EditingDidEnd += (args, e) =>
             {
                 ViewModel.Deadline = (DateTime)datePckrDeadline.Date;
             };
-
             _editButton.TouchDown += (args, e) =>
             {
                 if (!tbxTitle.Enabled)
                 {
                     tbxTitle.Enabled = true;
                     tbxTask.Enabled = true;
-                    if (ViewModel.TskStatus != 2)
+                    if (ViewModel.TskStatus != (byte)TaskStatus.Done)
                     {
                         swtchStatus.Enabled = true;                     
                     }
                     else
                     {
-                        swtchStatus.SelectedSegment = 2;
+                        swtchStatus.SelectedSegment = (byte)TaskStatus.Done;
                         swtchStatus.Enabled = false;
                     }
                     btnEditDeadline.Enabled = true;
@@ -144,43 +126,42 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             tbxTask.Enabled = false;
             btnEditDeadline.Enabled = false;
 
-            if (_deleteButton != null && _saveButton != null && _editButton != null)
+            if (_deleteButton == null || _saveButton == null || _editButton == null) return;
+
+            _deleteButton = new UIButton
             {
-                _deleteButton = new UIButton
-                {
-                    TranslatesAutoresizingMaskIntoConstraints = false
-                };
-                _deleteButton.WidthAnchor.ConstraintEqualTo(32.0f).Active = true;
-                _deleteButton.HeightAnchor.ConstraintEqualTo(32.0f).Active = true;
-                _deleteButton.SetImage(new UIImage("rubbish-bin.png"), UIControlState.Normal);
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            _deleteButton.WidthAnchor.ConstraintEqualTo(32.0f).Active = true;
+            _deleteButton.HeightAnchor.ConstraintEqualTo(32.0f).Active = true;
+            _deleteButton.SetImage(new UIImage("rubbish-bin.png"), UIControlState.Normal);
 
-                _saveButton = new UIButton
-                {
-                    TranslatesAutoresizingMaskIntoConstraints = false
-                };
-                _saveButton.WidthAnchor.ConstraintEqualTo(32.0f).Active = true;
-                _saveButton.HeightAnchor.ConstraintEqualTo(32.0f).Active = true;
-                _saveButton.SetImage(new UIImage("save-file-option.png"), UIControlState.Normal);
+            _saveButton = new UIButton
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            _saveButton.WidthAnchor.ConstraintEqualTo(32.0f).Active = true;
+            _saveButton.HeightAnchor.ConstraintEqualTo(32.0f).Active = true;
+            _saveButton.SetImage(new UIImage("save-file-option.png"), UIControlState.Normal);
 
-                _editButton = new UIButton
-                {
-                    TranslatesAutoresizingMaskIntoConstraints = false
-                };
-                _editButton.WidthAnchor.ConstraintEqualTo(32.0f).Active = true;
-                _editButton.HeightAnchor.ConstraintEqualTo(32.0f).Active = true;
-                _editButton.SetImage(new UIImage("editProfile.png"), UIControlState.Normal);
+            _editButton = new UIButton
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            _editButton.WidthAnchor.ConstraintEqualTo(32.0f).Active = true;
+            _editButton.HeightAnchor.ConstraintEqualTo(32.0f).Active = true;
+            _editButton.SetImage(new UIImage("editProfile.png"), UIControlState.Normal);
 
-                NavigationItem.RightBarButtonItems = new UIBarButtonItem[]
-                {
-                    new UIBarButtonItem(_saveButton),
-                    new UIBarButtonItem(_deleteButton),                    
-                    new UIBarButtonItem(_editButton)
-                };
-                _deleteButton.Hidden = true;
-                _deleteButton.Enabled = false;
-                _saveButton.Hidden = true;
-                _saveButton.Enabled = false;
-            }
+            NavigationItem.RightBarButtonItems = new UIBarButtonItem[]
+            {
+                new UIBarButtonItem(_saveButton),
+                new UIBarButtonItem(_deleteButton),                    
+                new UIBarButtonItem(_editButton)
+            };
+            _deleteButton.Hidden = true;
+            _deleteButton.Enabled = false;
+            _saveButton.Hidden = true;
+            _saveButton.Enabled = false;
         }
     }
 }

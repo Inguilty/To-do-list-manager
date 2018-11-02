@@ -19,11 +19,6 @@ namespace ToDoListManagerAI.iOS.Views
             _infoButton = new UIButton();
         }
 
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-        }
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();

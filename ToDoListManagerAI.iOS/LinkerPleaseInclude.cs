@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
-using Foundation;
-using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Binding.Target;
-using MvvmCross.Platforms.Ios.Views;
-using UIKit;
+﻿using UIKit;
 
 namespace ToDoListManagerAI.iOS
 {

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using MvvmCross;
 using SQLite;
 using TodoListManager.Core.Models;
-using TodoListManager.Core.ViewModels;
 
 namespace TodoListManager.Core.Services
 {
@@ -16,7 +13,7 @@ namespace TodoListManager.Core.Services
         public DbService()
         {
             var iSQlite = Mvx.IoCProvider.Resolve<ISQLite>();
-            var databasePath = iSQlite.GetDatabasePath(App.DATABASE_NAME);
+            var databasePath = iSQlite.GetDatabasePath(App.DatabaseName);
             _database = new SQLiteConnection(databasePath);
         }
 

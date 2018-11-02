@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CoreGraphics;
 using CoreImage;
-using Foundation;
 using TodoListManager.Core.Services;
 using UIKit;
 
@@ -13,8 +8,8 @@ namespace ToDoListManagerAI.iOS.Services
 {
     public class ProgressDialogHandle : IDialogHandle
     {
-        private string _title;
-        private string _message;
+        private readonly string _title;
+        private readonly string _message;
         public UIAlertController AlertController { get; private set; }
 
         public void BeginAnimation()

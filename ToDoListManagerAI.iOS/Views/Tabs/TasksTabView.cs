@@ -1,7 +1,4 @@
-﻿
-using System;
-using System.Drawing;
-
+﻿using System;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views;
@@ -21,11 +18,6 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         {
             _addButton = new UIButton();
         }
-        
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-        }
 
         private async void AsyncInitialize()
         {
@@ -36,10 +28,11 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         {
             AsyncInitialize();
             base.ViewDidLoad();
+
             TabBarController.NavigationItem.LeftBarButtonItems = new UIBarButtonItem[] { TabBarController.NavigationItem.RightBarButtonItems[0], new UIBarButtonItem(_addButton) };
             _addButton.TouchDown += delegate
             {
-                ViewModel.AddCommand();
+                ViewModel.AddCommand.Execute(null);
                 ReloadRows();
             };
             _addButton.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -60,8 +53,8 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
 
             _source.SelectedItemChanged += (args, e) =>
             {
-                NSIndexPath indexPath = tasksTable.IndexPathForSelectedRow;
-                int index = indexPath.Row;
+                var indexPath = tasksTable.IndexPathForSelectedRow;
+                var index = indexPath.Row;
                 ActionSheetButtonsTouchUpInside(args, e, index);
                 ViewModel.CurrentTask((TaskModel)_source.SelectedItem);
             };
@@ -79,27 +72,26 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             actionSheet.CancelButtonIndex = 3;
 
             var source = sender as MvxSimpleTableViewSource;
-            var currCell = source.SelectedItem as TaskModel;
+            var currentCell = source?.SelectedItem as TaskModel;
 
-            actionSheet.Clicked += delegate (object a, UIButtonEventArgs but)
+            actionSheet.Clicked += async delegate (object a, UIButtonEventArgs but)
             {
                 if (but.ButtonIndex == 0)
                 {
-                    ViewModel.EditTaskCommand(currCell, index);
+                    ViewModel.EditTaskCommand.Execute(null);
                     ReloadRows();
                 }
                 if (but.ButtonIndex == 1)
                 {
-                    ViewModel.ChangeTaskStatusCommand(currCell, index);
+                    ViewModel.ChangeTaskStatusCommand(currentCell, index);
                     ReloadRows();
                 }
                 if (but.ButtonIndex == 2)
                 {
-                    ViewModel.DeleteTaskCommand(currCell, index);
+                    ViewModel.DeleteTaskCommand(currentCell, index);
                     ReloadRows();
                 }
             };
-
             actionSheet.ShowInView(View);
         }
 
@@ -109,6 +101,14 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             TabBarController.NavigationItem.LeftBarButtonItem = new UIBarButtonItem(_addButton);
         }
 
+        public override async void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            await ViewModel.ReloadCommandAsync.ExecuteAsync(null);
+            ReloadRows();
+        }
+
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -117,9 +117,10 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         private void ReloadRows()
         {
             tasksTable.BeginUpdates();
-            tasksTable.ReloadRows(tasksTable.IndexPathsForVisibleRows, UITableViewRowAnimation.None);
+            tasksTable.ReloadRows(tasksTable.IndexPathsForVisibleRows, UITableViewRowAnimation.Left);
             tasksTable.EndUpdates();
         }
+
     }
 
     public class MySimpleTableViewSource : MvxSimpleTableViewSource
@@ -127,25 +128,29 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         public MySimpleTableViewSource(UITableView table, NSString firstKey, NSString secondKey)
             : base(table, firstKey, secondKey)
         {
-
         }
 
         public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
         {
             var tasksData = GetItemAt(indexPath);
-            TaskModel oldModel = (TaskModel)tasksData;
+            var oldModel = (TaskModel)tasksData;
             var model = new TaskItem()
             {
                 Status = oldModel.Status,
                 Deadline = oldModel.Deadline.ToString("MM/dd/yyyy hh:mm tt")
             };
-            if (model.Status == TodoListManager.Core.Enums.TaskStatus.NotDone)
-                model.StatusColor = UIColor.Red;
-            else if (model.Status == TodoListManager.Core.Enums.TaskStatus.InProcess)
-                model.StatusColor = UIColor.Blue;
-            else if (model.Status == TodoListManager.Core.Enums.TaskStatus.Done)
-                model.StatusColor = UIColor.Green;
-
+            switch (model.Status)
+            {
+                case TodoListManager.Core.Enums.TaskStatus.NotDone:
+                    model.StatusColor = UIColor.Red;
+                    break;
+                case TodoListManager.Core.Enums.TaskStatus.InProcess:
+                    model.StatusColor = UIColor.Blue;
+                    break;
+                case TodoListManager.Core.Enums.TaskStatus.Done:
+                    model.StatusColor = UIColor.Green;
+                    break;
+            }      
             ((TasksTableViewCell)cell).SetStatusColorCommand.Execute(model.StatusColor);
             ((TasksTableViewCell)cell).SetDeadlineCommand.Execute(model.Deadline);
         }

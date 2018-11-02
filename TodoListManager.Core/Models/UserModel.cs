@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SQLite;
+﻿using SQLite;
 using TodoListManager.Core.Enums;
 
 namespace TodoListManager.Core.Models

@@ -1,12 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Net;
-using System.Threading.Tasks;
-using CoreAnimation;
-using CoreGraphics;
+﻿using System;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding.Views;
@@ -30,18 +22,12 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             _loading = new ProgressDialogHandle("", "Loading data..");
         }
 
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-        }
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
             _loading.BeginAnimation();
             InitializeNews();
             Title = ViewModel.Title;
-
             _source = new CustomSimpleTableViewSource(tableNews, NewsTableViewCell.Key, NewsTableViewCell.Key);
 
             var set = this.CreateBindingSet<NewsTabView, NewsTabViewModel>();
@@ -52,12 +38,9 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             tableNews.ContentInset = UIEdgeInsets.FromString("20.0, 20.0, 20.0, 20.0");
             tableNews.RowHeight = 215;
             tableNews.ReloadData();
-
             
             _source.SelectedItemChanged += ActionSheetButtonsTouchUpInside;
-
             Refresh();
-
             AddRefreshControl();
             Add(tableNews);
             tableNews.Add(_refreshControl);
@@ -66,8 +49,8 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         protected void ActionSheetButtonsTouchUpInside(object sender, EventArgs e)
         {
             var source = sender as MvxSimpleTableViewSource;
-            var currCell = source.SelectedItem as NewsModel;
-            ViewModel.GoToSourceCommand(currCell);
+            var currentCell = source?.SelectedItem as NewsModel;
+            ViewModel.GoToSourceCommand(currentCell);
             tableNews.ReloadData();
         }
 
@@ -86,23 +69,19 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
 
         // This method will add the UIRefreshControl to the table view if  
         // it is available, ie, we are running on iOS 6+  
-        void AddRefreshControl()
+        private void AddRefreshControl()
         {
-            if (UIDevice.CurrentDevice.CheckSystemVersion(6, 0))
+            if (!UIDevice.CurrentDevice.CheckSystemVersion(6, 0)) return;
+            _refreshControl = new UIRefreshControl();
+            _refreshControl.ValueChanged += (sender, e) =>
             {
-                // the refresh control is available, let's add it  
-                _refreshControl = new UIRefreshControl();
-                _refreshControl.ValueChanged += (sender, e) =>
-                {
-                    tableNews.Source = _source;
-                    tableNews.ContentInset = UIEdgeInsets.FromString("20.0, 20.0, 20.0, 20.0");
-                    tableNews.RowHeight = 215;
-                    Refresh();
-                    _useRefreshControl = false;
-                };
-                
-                _useRefreshControl = true;
-            }
+                tableNews.Source = _source;
+                tableNews.ContentInset = UIEdgeInsets.FromString("20.0, 20.0, 20.0, 20.0");
+                tableNews.RowHeight = 215;
+                Refresh();
+                _useRefreshControl = false;
+            };                
+            _useRefreshControl = true;
         }
 
         private async void InitializeNews()
@@ -110,7 +89,14 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             await ViewModel.Initialize();
             await _loading.Close();
         }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            TabBarController.NavigationItem.LeftBarButtonItem = null;
+        }
     }
+
     public class CustomSimpleTableViewSource : MvxSimpleTableViewSource
     {
         public CustomSimpleTableViewSource(UITableView table, NSString firstKey, NSString secondKey)

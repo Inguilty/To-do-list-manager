@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Globalization;
-using System.Net;
-using System.Threading;
 using System.Windows.Input;
-using CoreImage;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Commands;
@@ -53,8 +49,6 @@ namespace ToDoListManagerAI.iOS.Views.Cells
 
     public class TaskItem
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
         public string Deadline { get; set; }
         public TaskStatus Status { get; set; }
         public UIColor StatusColor { get; set; }

@@ -1,13 +1,8 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Foundation;
-using TodoListManager.Core.Enums;
 using TodoListManager.Core.Models;
 using TodoListManager.Core.Services;
 using UIKit;
@@ -94,7 +89,6 @@ namespace TodoListManager.Core.ViewModels
                     UserId = _user.Id
                 };
                 _dataService.SaveItem(model);
-                NavigationService.Navigate<HomeViewModel,UserModel>(_user);
                 ViewDispose(this);
             }
             else
@@ -107,6 +101,7 @@ namespace TodoListManager.Core.ViewModels
                 alert.AddButton("OK");
                 alert.Show();
             }
+            
         }
         public override void Prepare(UserModel parameter)
         {

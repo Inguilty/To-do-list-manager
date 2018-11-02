@@ -1,8 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Net;
 using System.Windows.Input;
-using CoreImage;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Commands;
@@ -27,8 +24,6 @@ namespace ToDoListManagerAI.iOS.Views.Cells
         {
             imageNews.Image = img;
         }
-
-
 
         protected NewsTableViewCell(IntPtr handle) : base(handle)
         {        

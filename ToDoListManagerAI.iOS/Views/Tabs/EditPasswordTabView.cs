@@ -1,8 +1,5 @@
-﻿
-using System;
-using System.Drawing;
+﻿using System;
 using CoreImage;
-using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
@@ -16,15 +13,10 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
     {
         public EditPasswordTabView() : base(nameof(EditPasswordTabView), null)
         {
-
         }
 
         public EditPasswordTabView(IntPtr handle) : base(handle)
         {
-        }
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
         }
 
         public override void ViewDidLoad()

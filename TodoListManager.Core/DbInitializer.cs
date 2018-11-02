@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TodoListManager.Core.Models;
+﻿using TodoListManager.Core.Models;
 using TodoListManager.Core.Services;
 
 namespace TodoListManager.Core

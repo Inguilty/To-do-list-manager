@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MvvmCross.ViewModels;
-
-namespace TodoListManager.Core.Models
+﻿namespace TodoListManager.Core.Models
 {
     public class NewsModel 
     {

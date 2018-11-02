@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TodoListManager.Core.Models
+﻿namespace TodoListManager.Core.Models
 {
     public class PickedFileModel
     {

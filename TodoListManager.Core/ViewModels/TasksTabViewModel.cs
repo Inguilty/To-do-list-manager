@@ -2,16 +2,11 @@
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TodoListManager.Core.Enums;
 using TodoListManager.Core.Models;
 using TodoListManager.Core.Services;
-using UIKit;
 using TaskStatus = TodoListManager.Core.Enums.TaskStatus;
 
 namespace TodoListManager.Core.ViewModels
@@ -47,28 +42,34 @@ namespace TodoListManager.Core.ViewModels
         private UserModel _user;
         #endregion
 
-        #region Comands     
-        public void AddCommand()
+        #region Comands    
+
+        public ICommand AddCommand => new MvxAsyncCommand(AddTask);
+        public ICommand EditTaskCommand => new MvxAsyncCommand(EditTask);
+
+        public MvxAsyncCommand ReloadCommandAsync => new MvxAsyncCommand(async () => { await ReloadTable(); });
+
+
+        private async Task AddTask()
         {
-            NavigationService.Navigate<CreateTaskTabViewModel,UserModel>(_user);
-            ReloadTable();
+            await NavigationService.Navigate<CreateTaskTabViewModel, UserModel>(_user);
+            await ReloadTable();
         }
-        public void EditTaskCommand(TaskModel cellData, int id)
+        private async Task EditTask()
         {
-            _cellAndUser = new CellContent(_user,_task);
-            NavigationService.Navigate<EditTaskTabViewModel, CellContent>(_cellAndUser);
-            //NavigationService.Navigate<EditTaskTabViewModel, TaskModel>(_task);
-            ReloadTable();
+            _cellAndUser = new CellContent(_user, _task);
+            await NavigationService.Navigate<EditTaskTabViewModel, CellContent>(_cellAndUser);
+            await ReloadTable();
         }
         public void ChangeTaskStatusCommand(TaskModel cellData, int id)
         {
             _taskService.Update(cellData);
             ReloadCell(id, _task.Id);
         }
-        public void DeleteTaskCommand(TaskModel cellData, int id)
+        public async Task DeleteTaskCommand(TaskModel cellData, int id)
         {
             _taskService.Delete(cellData);
-            ReloadTable();
+            await ReloadTable();
         }
         #endregion
 
@@ -77,7 +78,7 @@ namespace TodoListManager.Core.ViewModels
             Tasks[idCell] = _dataService.GetItem<TaskModel>(taskId);
         }
 
-        private void ReloadTable()
+        private async Task ReloadTable()
         {
             Tasks = new MvxObservableCollection<TaskModel>();
             var taskList = _taskService.GetUserTasks(_user);
@@ -95,8 +96,10 @@ namespace TodoListManager.Core.ViewModels
                     if (el.Status == TaskStatus.NotDone)
                         el.Status = TaskStatus.NotDone;
                 }
+
                 Tasks.Add(el);
             }
+            await RaisePropertyChanged();
         }
 
         public override void Prepare(UserModel parameter)

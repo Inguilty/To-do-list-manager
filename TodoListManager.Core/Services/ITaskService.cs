@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TodoListManager.Core.Models;
-using TodoListManager.Core.ViewModels;
 
 namespace TodoListManager.Core.Services
 {

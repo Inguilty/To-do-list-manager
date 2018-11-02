@@ -1,7 +1,4 @@
-﻿using MvvmCross;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TodoListManager.Core.Models;
 
 namespace TodoListManager.Core.Services

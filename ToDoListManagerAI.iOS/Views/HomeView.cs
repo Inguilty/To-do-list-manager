@@ -25,11 +25,6 @@ namespace ToDoListManagerAI.iOS.Views
             ViewDidLoad();
         }
 
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-        }
-
         public sealed override void ViewDidLoad()
         {
             base.ViewDidLoad();

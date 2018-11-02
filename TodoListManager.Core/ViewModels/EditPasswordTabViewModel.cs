@@ -15,11 +15,10 @@ using UIKit;
 
 namespace TodoListManager.Core.ViewModels
 {
-
-    public class EditPasswordTabViewModel : BaseViewModel<UserModel> //MvxViewModel<ProfileTabViewModel>
+    public class EditPasswordTabViewModel : BaseViewModel<PasswordContent>
     {
         public EditPasswordTabViewModel(IMvxNavigationService navigationService, IDbService dbService)
-        :base(navigationService)
+        : base(navigationService)
         {
             _navigationService = navigationService;
             _dataService = dbService;
@@ -38,7 +37,7 @@ namespace TodoListManager.Core.ViewModels
         private IDbService _dataService;
         private bool _result = false;
         private UserModel _user;
-
+        private ProfileTabViewModel _model;
         public UIColor AlertColor
         {
             get => _alertColor;
@@ -77,17 +76,6 @@ namespace TodoListManager.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-
-        public string AlertMessage
-        {
-            get => _alertMessage;
-            set
-            {
-                _alertMessage = value;
-                RaisePropertyChanged();
-            }
-
-        }
         #endregion
 
         public ICommand CancelCommand => new MvxCommand(Cancel);
@@ -96,21 +84,14 @@ namespace TodoListManager.Core.ViewModels
         {
             ViewDispose(this);
             _result = false;
-            //_model.Result += () => _result;
-            //_model.Begin();
+            _model.Result += () => _result;
+            _model.Begin();
         }
 
-        //private ProfileTabViewModel _model;
-        //public override void Prepare(ProfileTabViewModel dataService)
-        //{
-        //    _model = dataService;
-        //    _dataService = new DbService();
-        //    //_dataService = dataService;
-        //}
-
-        public override void Prepare(UserModel parameter)
+        public override void Prepare(PasswordContent parameter)
         {
-            _user = parameter;
+            _user = parameter.User;
+            _model = parameter.Profile;
         }
         #region Validation
         public void CheckOldPassword()
@@ -129,7 +110,6 @@ namespace TodoListManager.Core.ViewModels
 
                 if (IsOldPasswordValid)
                 {
-                    //AlertColor = UIColor.Green;
                     AlertMessage = "";
                 }
                 else
@@ -151,7 +131,6 @@ namespace TodoListManager.Core.ViewModels
             {
                 IsNewPasswordValid = true;
                 AlertMessage = "";
-                //AlertColor = UIColor.Green;
             }
             else
                 if (_newPassword.Length < 6)
@@ -184,7 +163,6 @@ namespace TodoListManager.Core.ViewModels
                 else
                 {
                     ConfirmValid = true;
-                    //AlertColor = UIColor.Green;
                     AlertMessage = "";
                 }
             }
@@ -193,28 +171,28 @@ namespace TodoListManager.Core.ViewModels
         public override void Validate()
         {
             var equal = _newPassword == _confirmNewPassword;
-            var user = _dataService.GetItem<UserModel> (_user.Id);
+            var user = _dataService.GetItem<UserModel>(_user.Id);
 
             if ((_oldPassword == user.Password) && (_newPassword?.Length >= 6) && (_newPassword?.Length <= 36) && equal)
             {
                 user.Password = NewPassword;
                 _user.Password = NewPassword;
                 AlertMessage = "";
-                AlertColor = UIColor.Green;               
+                AlertColor = UIColor.Green;
                 _dataService.SaveItem<UserModel>(user);
                 ViewDispose(this);
                 _result = true;
-                //_model.Result += () => _result;
-                //_model.Begin();
+                _model.Result += () => _result;
+                _model.Begin();
                 return;
             }
-            if (string.IsNullOrEmpty(_newPassword)|| string.IsNullOrEmpty(_oldPassword) || string.IsNullOrEmpty(_confirmNewPassword))
+            if (string.IsNullOrEmpty(_newPassword) || string.IsNullOrEmpty(_oldPassword) || string.IsNullOrEmpty(_confirmNewPassword))
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "Not all required fields was filled!";
                 _result = false;
-                //_model.Result += () => _result;
-                //_model.Begin();
+                _model.Result += () => _result;
+                _model.Begin();
                 return;
             }
             if (_oldPassword != user.Password)
@@ -222,8 +200,8 @@ namespace TodoListManager.Core.ViewModels
                 AlertColor = UIColor.Red;
                 AlertMessage = "Old password is wrong!";
                 _result = false;
-                //_model.Result += () => _result;
-                //_model.Begin();
+                _model.Result += () => _result;
+                _model.Begin();
                 return;
             }
             if ((_newPassword?.Length < 6) || (_newPassword?.Length > 36))
@@ -231,8 +209,8 @@ namespace TodoListManager.Core.ViewModels
                 AlertColor = UIColor.Red;
                 AlertMessage = "New password does not fit!";
                 _result = false;
-                //_model.Result += () => _result;
-                //_model.Begin();
+                _model.Result += () => _result;
+                _model.Begin();
                 return;
             }
             if (_newPassword != _confirmNewPassword)
@@ -240,9 +218,9 @@ namespace TodoListManager.Core.ViewModels
                 AlertColor = UIColor.Red;
                 AlertMessage = "New and confirm password do not match!";
                 _result = false;
-                //_model.Result += () => _result;
-                //_model.Begin();
-            }            
+                _model.Result += () => _result;
+                _model.Begin();
+            }
         }
         #endregion      
     }

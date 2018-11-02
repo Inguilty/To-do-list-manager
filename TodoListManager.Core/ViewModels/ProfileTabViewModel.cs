@@ -1,10 +1,5 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -16,7 +11,7 @@ namespace TodoListManager.Core.ViewModels
 {
     public class ProfileTabViewModel : BaseViewModel<UserModel>
     {
-        public ProfileTabViewModel(IMvxNavigationService navigationService, IFilePickerService service, IDbService dataService,UserModel user)
+        public ProfileTabViewModel(IMvxNavigationService navigationService, IFilePickerService service, IDbService dataService, UserModel user)
             : base(navigationService)
         {
             Title = "Profile";
@@ -37,6 +32,7 @@ namespace TodoListManager.Core.ViewModels
         private readonly IDbService _dataService;
         private readonly IFilePickerService _filePicker;
         private UserModel _user;
+        private PasswordContent _passwordContent;
 
         public UIColor AlertColor
         {
@@ -99,24 +95,24 @@ namespace TodoListManager.Core.ViewModels
 
         public event ChangePasswordResult Result;
 
-        //public void Begin()
-        //{
-        //    if (Result != null && Result.Invoke())
-        //    {
-        //        AlertMessage = "Password has been successfully changed!";
-        //        AlertColor = UIColor.Green;
-        //    }
-        //    else
-        //    {
-        //        AlertMessage = "";
-        //        AlertColor = UIColor.Red;
-        //    }
-        //}
+        public void Begin()
+        {
+            if (Result != null && Result.Invoke())
+            {
+                AlertMessage = "Password has been successfully changed!";
+                AlertColor = UIColor.Green;
+            }
+            else
+            {
+                AlertMessage = "";
+                AlertColor = UIColor.Red;
+            }
+        }
 
         private void ChangePassword()
         {
-            //var cls = this;
-            NavigationService.Navigate<EditPasswordTabViewModel, UserModel > (_user);
+            _passwordContent = new PasswordContent(_user, this);
+            NavigationService.Navigate<EditPasswordTabViewModel, PasswordContent>(_passwordContent);
         }
 
         public ICommand UploadImageCommand => new MvxAsyncCommand(UploadImageAsync);
@@ -183,10 +179,22 @@ namespace TodoListManager.Core.ViewModels
                 AlertMessage = "All changes were successfully saved!";
                 return;
             }
-            Email = email;           
+            Email = email;
         }
         #endregion     
     }
 
     public delegate bool ChangePasswordResult();
+
+    public class PasswordContent
+    {
+        public UserModel User;
+        public ProfileTabViewModel Profile;
+
+        public PasswordContent(UserModel user, ProfileTabViewModel profile)
+        {
+            User = user;
+            Profile = profile;
+        }
+    }
 }

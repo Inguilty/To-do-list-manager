@@ -1,8 +1,6 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
 using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Foundation;
 using TodoListManager.Core.Models;
@@ -29,7 +27,6 @@ namespace TodoListManager.Core.ViewModels
         private readonly IMvxNavigationService _service;
         private readonly IDbService _dataService;
 
-        public string Title { get; private set; }
         private TaskModel _currentTask;
         public string TaskTitle
         {
@@ -107,7 +104,6 @@ namespace TodoListManager.Core.ViewModels
             item.Status = stat;
 
             _dataService.SaveItem<TaskModel>(item);
-            _service.Navigate<HomeViewModel, UserModel>(_user);
             ViewDispose(this);
         }
 
@@ -126,7 +122,6 @@ namespace TodoListManager.Core.ViewModels
                 if (args.ButtonIndex == 0)
                 {
                     _dataService.DeleteItem<TaskModel>(_currentTask.Id);
-                    _service.Navigate<HomeViewModel, UserModel>(_user);
                     ViewDispose(this);
                 }
             };

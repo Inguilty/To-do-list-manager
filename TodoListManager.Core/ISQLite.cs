@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TodoListManager.Core.Services
+﻿namespace TodoListManager.Core
 {
     public interface ISQLite
     {

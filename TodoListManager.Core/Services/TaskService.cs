@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TodoListManager.Core.Models;
-using TodoListManager.Core.ViewModels;
-using TaskStatus = TodoListManager.Core.Enums.TaskStatus;
 
 namespace TodoListManager.Core.Services
 {
@@ -26,7 +21,7 @@ namespace TodoListManager.Core.Services
             {
                 case (Enums.TaskStatus.NotDone): item.Status = Enums.TaskStatus.InProcess; break;
                 case (Enums.TaskStatus.InProcess): item.Status = Enums.TaskStatus.Done; item.Deadline = DateTime.UtcNow; break;
-                case (Enums.TaskStatus.Done): item.Status = TaskStatus.Done; break;;
+                case (Enums.TaskStatus.Done): item.Status = Enums.TaskStatus.Done; break;;
             }
             _dataService.SaveItem(item);
         }

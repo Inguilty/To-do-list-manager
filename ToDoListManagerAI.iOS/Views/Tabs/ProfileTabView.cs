@@ -1,17 +1,9 @@
-﻿
-using System;
-using CoreAnimation;
+﻿using CoreAnimation;
 using CoreImage;
 using Foundation;
-using MvvmCross;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Navigation;
-using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Views;
-using MvvmCross.ViewModels;
-using TodoListManager.Core.Services;
 using TodoListManager.Core.ViewModels;
-using ToDoListManagerAI.iOS.Services;
 using UIKit;
 
 namespace ToDoListManagerAI.iOS.Views.Tabs
@@ -21,11 +13,6 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         private UIButton _editProfile;
         public ProfileTabView() : base(nameof(ProfileTabView), null)
         {
-        }
-
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
         }
 
         public override void ViewDidLoad()
@@ -98,8 +85,7 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             _editProfile.TouchDown += delegate
             {
                 if (tbxEmail.Enabled == false)
-                {
-                    
+                {                  
                     tbxEmail.Enabled = true;
                     btnSaveChanges.Enabled = true;
                     btnSaveChanges.Hidden = false;
@@ -108,7 +94,6 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
                     btnChooseFile.Enabled = true;
                     btnChooseFile.Hidden = false;
                     ViewModel.AlertMessage = "";
-                    //ViewModel.Email = HomeViewModel.UserModel.Email;
                 }
                 else
                 {

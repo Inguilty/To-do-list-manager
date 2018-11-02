@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using CoreAnimation;
+﻿using CoreAnimation;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using CoreGraphics;
 using Foundation;
@@ -167,11 +164,6 @@ namespace ToDoListManagerAI.iOS.Services
             {
                 return null;
             }
-
-            var orientation = originalImage.Orientation;
-
-            //originalImage = Rotate(originalImage, orientation);
-
             CGSize inputSize = originalImage.Size;
             nfloat outputLength = (nfloat)Math.Min(inputSize.Width, inputSize.Height);
             CGSize outputSize = new CGSize(outputLength, outputLength);
@@ -184,15 +176,8 @@ namespace ToDoListManagerAI.iOS.Services
             {
                 outImage = UIImage.FromImage(cr);
             }
-
             outImage = outImage?.Scale(new CGSize(outputLength, outputLength));
-
-            if (outImage != null)
-            {
-                return outImage;
-            }
-
-            return originalImage;
+            return outImage ?? originalImage;
         }
 
     }

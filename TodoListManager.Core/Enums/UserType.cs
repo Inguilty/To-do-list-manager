@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TodoListManager.Core.Enums
+﻿namespace TodoListManager.Core.Enums
 {
     public enum UserType
     {

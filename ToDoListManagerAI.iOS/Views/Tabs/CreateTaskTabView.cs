@@ -16,11 +16,6 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             _saveButton = new UIButton();
         }
 
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-        }
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -35,17 +30,7 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             set.Bind(tbxChooseDeadline).To(vm => vm.Deadline);
             set.Apply();
 
-            btnEditDeadline.TouchDown += (args, e) =>
-            {
-                if (dpDeadline.Hidden)
-                {
-                    dpDeadline.Hidden = false;
-                }
-                else
-                {
-                    dpDeadline.Hidden = true;
-                }
-            };
+            btnEditDeadline.TouchDown += (args, e) => { dpDeadline.Hidden = !dpDeadline.Hidden; };
             dpDeadline.EditingDidEnd += (args, e) => { ViewModel.Deadline = (DateTime)dpDeadline.Date; };
         }
 

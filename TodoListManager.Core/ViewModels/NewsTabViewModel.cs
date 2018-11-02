@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using DeviceCheck;
 using Foundation;
-using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SafariServices;
@@ -28,10 +21,13 @@ namespace TodoListManager.Core.ViewModels
             News = new MvxObservableCollection<NewsModel>();
         }
 
+        #region Fields
         private UserModel _user;
-        private IRssService _rssService;
+        private readonly IRssService _rssService;
         private MvxObservableCollection<NewsModel> _news;
         public MvxObservableCollection<NewsModel> News
+        #endregion
+
         {
             get => _news;
             set
