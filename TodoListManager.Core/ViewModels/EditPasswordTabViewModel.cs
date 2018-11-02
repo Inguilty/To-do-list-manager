@@ -16,12 +16,11 @@ using UIKit;
 namespace TodoListManager.Core.ViewModels
 {
 
-    public class EditPasswordTabViewModel : MvxViewModel<IDbService/*,ProfileTabViewModel*/>
+    public class EditPasswordTabViewModel : MvxViewModel<ProfileTabViewModel>//<IDbService/*,ProfileTabViewModel*/>
     {
-        public EditPasswordTabViewModel(IMvxNavigationService navigationService/*,ProfileTabViewModel model*/)
+        public EditPasswordTabViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
-            //_model = model;
         }
 
         #region Fields and properties    
@@ -35,8 +34,8 @@ namespace TodoListManager.Core.ViewModels
         private UIColor _alertColor;
         private readonly IMvxNavigationService _navigationService;
         private IDbService _dataService;
-        public bool Result = false;
-        //private ProfileTabViewModel _model;
+        private bool _result = false;
+        
         public UIColor AlertColor
         {
             get => _alertColor;
@@ -93,11 +92,17 @@ namespace TodoListManager.Core.ViewModels
         private void Cancel()
         {
             _navigationService.Close(this);
+            _result = false;
+            _model.Result += () => _result;
+            _model.Begin();
         }
 
-        public override void Prepare(IDbService dataService)
+        private ProfileTabViewModel _model;
+        public override void Prepare(ProfileTabViewModel dataService)
         {
-            _dataService = dataService;
+            _model = dataService;
+            _dataService = new DbService();
+            //_dataService = dataService;
         }
 
         #region Validation
@@ -194,42 +199,43 @@ namespace TodoListManager.Core.ViewModels
                 ConfirmNewPassword = "";
                 _dataService.SaveItem<UserModel>(_user);
                 _navigationService.Close(this);
-                Result = true;
+                _result = true;
 
-                //_model.Result +=() => Result;
-                //_model.Begin();
+                
+                
             }
             else if (string.IsNullOrEmpty(_newPassword)|| string.IsNullOrEmpty(_oldPassword) || string.IsNullOrEmpty(_confirmNewPassword))
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "Not all required fields was filled!";
-                Result = false;
+                _result = false;
             }           
             else if (!IsOldPasswordValid)
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "Old password is wrong!";
-                Result = false;
+                _result = false;
             }
             else if (!IsNewPasswordValid)
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "New password does not fit!";
-                Result = false;
+                _result = false;
             }
             else if (_newPassword != _confirmNewPassword)
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "New and confirm password do not match!";
-                Result = false;
+                _result = false;
             }
             else
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "Fields was filled incorrectly!";
-                Result = false;
+                _result = false;
             }
-
+            _model.Result += () => _result;
+            _model.Begin();
         }
         #endregion
     }

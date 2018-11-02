@@ -101,19 +101,19 @@ namespace TodoListManager.Core.ViewModels
         {
             if (Result != null && Result.Invoke())
             {
-                UIAlertView alert = new UIAlertView()
-                {
-                    Title = "About",
-                    Message = "Password has been successfully changed!"
-                };
-                alert.AddButton("OK");
-                alert.Show();
+                AlertMessage = "Password has been successfully changed!";
+                AlertColor = UIColor.Green;
+            }
+            else
+            {
+                AlertMessage = "";
+                AlertColor = UIColor.Red;
             }
         }
         private void ChangePassword()
         {
             var cls = this;
-            NavigationService.Navigate<EditPasswordTabViewModel, IDbService/*,ProfileTabViewModel*/>(_dataService);
+            NavigationService.Navigate<EditPasswordTabViewModel, /*IDbService*/ProfileTabViewModel > (/*_dataService*/cls);
         }
 
         public ICommand UploadImageCommand => new MvxAsyncCommand(UploadImageAsync);
