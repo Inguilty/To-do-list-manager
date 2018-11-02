@@ -33,7 +33,6 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             _addButton.TouchDown += delegate
             {
                 ViewModel.AddCommand.Execute(null);
-                ReloadRows();
             };
             _addButton.TranslatesAutoresizingMaskIntoConstraints = false;
             _addButton.WidthAnchor.ConstraintEqualTo(32.0f).Active = true;
@@ -74,22 +73,19 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             var source = sender as MvxSimpleTableViewSource;
             var currentCell = source?.SelectedItem as TaskModel;
 
-            actionSheet.Clicked += async delegate (object a, UIButtonEventArgs but)
+            actionSheet.Clicked += delegate (object a, UIButtonEventArgs but)
             {
                 if (but.ButtonIndex == 0)
                 {
                     ViewModel.EditTaskCommand.Execute(null);
-                    ReloadRows();
                 }
                 if (but.ButtonIndex == 1)
                 {
                     ViewModel.ChangeTaskStatusCommand(currentCell, index);
-                    ReloadRows();
                 }
                 if (but.ButtonIndex == 2)
                 {
                     ViewModel.DeleteTaskCommand(currentCell, index);
-                    ReloadRows();
                 }
             };
             actionSheet.ShowInView(View);
@@ -105,7 +101,7 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         {
             base.ViewWillAppear(animated);
             await ViewModel.ReloadCommandAsync.ExecuteAsync(null);
-            ReloadRows();
+            tasksTable.ReloadData();
         }
 
 
@@ -114,13 +110,6 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             base.ViewDidDisappear(animated);
             TabBarController.NavigationItem.LeftBarButtonItem = null;
         }
-        private void ReloadRows()
-        {
-            tasksTable.BeginUpdates();
-            tasksTable.ReloadRows(tasksTable.IndexPathsForVisibleRows, UITableViewRowAnimation.Left);
-            tasksTable.EndUpdates();
-        }
-
     }
 
     public class MySimpleTableViewSource : MvxSimpleTableViewSource

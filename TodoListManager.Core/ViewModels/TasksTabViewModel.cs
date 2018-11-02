@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TodoListManager.Core.Models;
 using TodoListManager.Core.Services;
-using TaskStatus = TodoListManager.Core.Enums.TaskStatus;
 
 namespace TodoListManager.Core.ViewModels
 {
@@ -86,15 +85,15 @@ namespace TodoListManager.Core.ViewModels
             {
                 if (el.Deadline < DateTime.Now)
                 {
-                    el.Status = TaskStatus.Done;
+                    el.Status = Enums.TaskStatus.Done;
                 }
 
                 if (el.Deadline >= DateTime.Now)
                 {
-                    if (el.Status == TaskStatus.InProcess)
-                        el.Status = TaskStatus.InProcess;
-                    if (el.Status == TaskStatus.NotDone)
-                        el.Status = TaskStatus.NotDone;
+                    if (el.Status == Enums.TaskStatus.InProcess)
+                        el.Status = Enums.TaskStatus.InProcess;
+                    if (el.Status == Enums.TaskStatus.NotDone)
+                        el.Status = Enums.TaskStatus.NotDone;
                 }
 
                 Tasks.Add(el);
@@ -114,16 +113,16 @@ namespace TodoListManager.Core.ViewModels
             {
                 if (el.Deadline < DateTime.Now)
                 {
-                    el.Status = TaskStatus.Done;
+                    el.Status = Enums.TaskStatus.Done;
                     _dataService.SaveItem(el);
                 }
                 else
                 if (el.Deadline >= DateTime.Now)
                 {
-                    if (el.Status == TaskStatus.InProcess)
-                        el.Status = TaskStatus.InProcess;
-                    if (el.Status == TaskStatus.NotDone)
-                        el.Status = TaskStatus.NotDone;
+                    if (el.Status == Enums.TaskStatus.InProcess)
+                        el.Status = Enums.TaskStatus.InProcess;
+                    if (el.Status == Enums.TaskStatus.NotDone)
+                        el.Status = Enums.TaskStatus.NotDone;
                 }
 
                 Tasks.Add(el);

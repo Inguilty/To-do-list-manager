@@ -30,14 +30,14 @@ namespace TodoListManager.Core.ViewModels
         public bool ConfirmValid = false;
         private string _oldPassword;
         private string _newPassword;
-        private string _alertMessage;
         private string _confirmNewPassword;
         private UIColor _alertColor;
         private readonly IMvxNavigationService _navigationService;
-        private IDbService _dataService;
+        private readonly IDbService _dataService;
         private bool _result = false;
         private UserModel _user;
         private ProfileTabViewModel _model;
+
         public UIColor AlertColor
         {
             get => _alertColor;
@@ -93,6 +93,7 @@ namespace TodoListManager.Core.ViewModels
             _user = parameter.User;
             _model = parameter.Profile;
         }
+
         #region Validation
         public void CheckOldPassword()
         {
