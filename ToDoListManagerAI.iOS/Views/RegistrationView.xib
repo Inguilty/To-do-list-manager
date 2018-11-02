@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userModelLabel="File's Owner" customClass="RegistrationView">
+            <connections>
+                <outlet property="view" destination="1" id="signUpView-outlet-1"/>
+                <outlet property="tbxFirstName" destination="3428" id="name-outlet-3428"/>
+                <outlet property="tbxLastName" destination="3564" id="name-outlet-3564"/>
+                <outlet property="tbxEmail" destination="3606" id="name-outlet-3606"/>
+                <outlet property="tbxLogin" destination="3648" id="name-outlet-3648"/>
+                <outlet property="tbxPassword" destination="3690" id="name-outlet-3690"/>
+                <outlet property="btnSubmit" destination="3774" id="name-outlet-3774"/>
+                <outlet property="btnChooseFile" destination="3732" id="name-outlet-3732"/>
+                <outlet property="lblInfoErrors" destination="13019" id="name-outlet-13019"/>
+                <outlet property="imgViewAvatar" destination="2551" id="name-outlet-2551"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <subviews>
+                <imageView userModelInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="2551" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                    <rect key="frame" x="132" y="93" width="150" height="150"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3428" translatesAutoresizingMaskIntoConstraints="NO" placeholder="First name" clearButtonMode="always" insetsLayoutMarginsFromSafeArea="NO">
+                    <rect key="frame" x="42.5" y="307" width="331" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userModelInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile Picture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3481" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="42.5" y="274" width="107.5" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3564" translatesAutoresizingMaskIntoConstraints="NO" placeholder="Last name" clearButtonMode="always">
+                    <rect key="frame" x="41.5" y="345" width="331" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3606" translatesAutoresizingMaskIntoConstraints="NO" placeholder="E-mail adress" clearButtonMode="always">
+                    <rect key="frame" x="41.5" y="383" width="331" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3648" translatesAutoresizingMaskIntoConstraints="NO" placeholder="Login" clearButtonMode="always">
+                    <rect key="frame" x="41.5" y="421" width="331" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3690" translatesAutoresizingMaskIntoConstraints="NO" placeholder="Password" clearButtonMode="always">
+                    <rect key="frame" x="41.5" y="468" width="331" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3732" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="198.5" y="269" width="77" height="30"/>
+                    <state key="normal" title="Choose file"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3774" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="175" y="517" width="64" height="35"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19" weight="semibold"/>
+                    <state key="normal" title="Submit"/>
+                </button>
+                <label opaque="NO" userModelInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="13019" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="41.5" y="574" width="331" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" colorSpace="calibratedRGB" red="1" green="0" blue="0" alpha="1"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint id="4237" firstItem="3481" firstAttribute="top" secondItem="1" secondAttribute="top" constant="274"/>
+                <constraint id="4660" firstItem="3732" firstAttribute="top" secondItem="1" secondAttribute="top" constant="269"/>
+                <constraint id="8313" firstItem="3564" firstAttribute="width" secondItem="1" secondAttribute="width" multiplier="0.8"/>
+                <constraint id="8643" firstItem="3564" firstAttribute="top" secondItem="1" secondAttribute="top" constant="345"/>
+                <constraint id="9015" firstItem="3564" firstAttribute="centerX" secondItem="1" secondAttribute="centerX"/>
+                <constraint id="9385" firstItem="3428" firstAttribute="top" secondItem="1" secondAttribute="top" constant="307"/>
+                <constraint id="9469" firstItem="3428" firstAttribute="width" secondItem="1" secondAttribute="width" multiplier="0.8"/>
+                <constraint id="9922" firstItem="3428" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" constant="1"/>
+                <constraint id="10211" firstItem="3481" firstAttribute="leading" secondItem="3428" secondAttribute="leading"/>
+                <constraint id="10253" firstItem="3564" firstAttribute="height" secondItem="3428" secondAttribute="height"/>
+                <constraint id="10254" firstItem="3606" firstAttribute="height" secondItem="3428" secondAttribute="height"/>
+                <constraint id="10255" firstItem="3648" firstAttribute="height" secondItem="3428" secondAttribute="height"/>
+                <constraint id="10256" firstItem="3690" firstAttribute="height" secondItem="3428" secondAttribute="height"/>
+                <constraint id="10924" firstItem="3606" firstAttribute="top" secondItem="3564" secondAttribute="bottom" constant="8"/>
+                <constraint id="10966" firstItem="3606" firstAttribute="centerX" secondItem="1" secondAttribute="centerX"/>
+                <constraint id="11008" firstItem="3606" firstAttribute="width" secondItem="1" secondAttribute="width" multiplier="0.8"/>
+                <constraint id="11174" firstItem="3648" firstAttribute="width" secondItem="1" secondAttribute="width" multiplier="0.8"/>
+                <constraint id="11380" firstItem="3648" firstAttribute="top" secondItem="1" secondAttribute="top" constant="421"/>
+                <constraint id="11504" firstItem="3648" firstAttribute="centerX" secondItem="1" secondAttribute="centerX"/>
+                <constraint id="11669" firstItem="3690" firstAttribute="top" secondItem="1" secondAttribute="top" constant="468"/>
+                <constraint id="11711" firstItem="3690" firstAttribute="centerX" secondItem="1" secondAttribute="centerX"/>
+                <constraint id="11753" firstItem="3690" firstAttribute="width" secondItem="1" secondAttribute="width" multiplier="0.8"/>
+                <constraint id="12205" firstItem="3774" firstAttribute="top" secondItem="1" secondAttribute="top" constant="517"/>
+                <constraint id="12247" firstItem="3774" firstAttribute="centerX" secondItem="1" secondAttribute="centerX"/>
+                <constraint id="12535" firstItem="3732" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" constant="30"/>
+                <constraint id="13022" firstItem="13019" firstAttribute="width" secondItem="1" secondAttribute="width" multiplier="0.8"/>
+                <constraint id="13626" firstItem="13019" firstAttribute="top" secondItem="3774" secondAttribute="bottom" constant="22"/>
+                <constraint id="13627" firstItem="13019" firstAttribute="centerX" secondItem="1" secondAttribute="centerX"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

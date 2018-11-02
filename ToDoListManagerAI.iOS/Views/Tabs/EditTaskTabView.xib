@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userModelLabel="File's Owner" customClass="EditTaskTabView">
+            <connections>
+                <outlet property="view" destination="1" id="editTaskTabView-outlet-1"/>
+                <outlet property="tbxTitle" destination="405" id="name-outlet-405"/>
+                <outlet property="tbxTask" destination="407" id="name-outlet-407"/>
+                <outlet property="datePckrDeadline" destination="402" id="name-outlet-402"/>
+                <outlet property="swtchStatus" destination="4370" id="name-outlet-4370"/>
+                <outlet property="lblDeadline" destination="406" id="name-outlet-406"/>
+                <outlet property="tbxChooseDeadline" destination="5977" id="name-outlet-5977"/>
+                <outlet property="btnEditDeadline" destination="9163" id="name-outlet-9163"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <subviews>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="402" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="42" y="319" width="320" height="216"/>
+                    <date key="date" timeIntervalSinceReferenceDate="562774918.466214">
+                        <!--Thu, 01 Nov 2018 14:21:58 GMT-->
+                    </date>
+                    <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                        <!--Thu, 01 Jan 1970 11:00:00 GMT-->
+                    </date>
+                </datePicker>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="405" translatesAutoresizingMaskIntoConstraints="NO" textAlignment="justified">
+                    <rect key="frame" x="132" y="128" width="248.5" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userModelInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deadline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="406" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="30" y="286" width="67" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="407" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="132" y="174" width="248.5" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userModelInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="408" translatesAutoresizingMaskIntoConstraints="NO" text="Status">
+                    <rect key="frame" x="30" y="233" width="49.5" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userModelInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="409" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="30" y="179" width="88" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userModelInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="410" translatesAutoresizingMaskIntoConstraints="NO" text="Title">
+                    <rect key="frame" x="30" y="133" width="33.5" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="4370" fixedFrame="YES">
+                    <rect key="frame" x="150" y="229" width="224" height="29"/>
+                    <segments>
+                        <segment title="NotDone"/>
+                        <segment title="InProcess"/>
+                        <segment title="Done"/>
+                    </segments>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </segmentedControl>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="5977" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="132" y="281" width="194" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9163" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                    <rect key="frame" x="334" y="281" width="28" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint id="1950" firstItem="410" firstAttribute="top" secondItem="1" secondAttribute="top" constant="133"/>
+                <constraint id="1979" firstItem="410" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="30"/>
+                <constraint id="2284" firstItem="409" firstAttribute="top" secondItem="410" secondAttribute="bottom" constant="25"/>
+                <constraint id="2313" firstItem="409" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="30"/>
+                <constraint id="2342" firstItem="405" firstAttribute="top" secondItem="1" secondAttribute="top" constant="128"/>
+                <constraint id="2371" firstItem="405" firstAttribute="leading" secondItem="409" secondAttribute="trailing" constant="14"/>
+                <constraint id="2400" firstItem="405" firstAttribute="width" secondItem="1" secondAttribute="width" multiplier="0.6"/>
+                <constraint id="2507" firstItem="407" firstAttribute="top" secondItem="405" secondAttribute="bottom" constant="16"/>
+                <constraint id="2536" firstItem="407" firstAttribute="leading" secondItem="409" secondAttribute="trailing" constant="14"/>
+                <constraint id="2565" firstItem="407" firstAttribute="width" secondItem="1" secondAttribute="width" multiplier="0.6"/>
+                <constraint id="3164" firstItem="408" firstAttribute="top" secondItem="409" secondAttribute="bottom" constant="34"/>
+                <constraint id="3193" firstItem="408" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="30"/>
+                <constraint id="3337" firstItem="406" firstAttribute="top" secondItem="408" secondAttribute="bottom" constant="32"/>
+                <constraint id="3366" firstItem="406" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="30"/>
+                <constraint id="3559" firstItem="402" firstAttribute="top" secondItem="1" secondAttribute="top" constant="319"/>
+                <constraint id="3588" firstAttribute="centerX" secondItem="402" secondAttribute="centerX" constant="5"/>
+                <constraint id="9555" firstItem="5977" firstAttribute="top" secondItem="1" secondAttribute="top" constant="281"/>
+                <constraint id="9556" firstItem="5977" firstAttribute="leading" secondItem="406" secondAttribute="trailing" constant="35"/>
+                <constraint id="9557" firstItem="5977" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" constant="22"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

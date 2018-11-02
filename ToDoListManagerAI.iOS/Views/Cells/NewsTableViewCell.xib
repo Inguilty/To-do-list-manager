@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userModelLabel="File's Owner" customClass="NewsTableViewCell"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="215" id="cxk-wN-pdQ" customClass="NewsTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="433" height="215"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cxk-wN-pdQ" id="YTl-1W-gDM">
+                <rect key="frame" x="0.0" y="0.0" width="433" height="214"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userModelInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="340" translatesAutoresizingMaskIntoConstraints="NO" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite">
+                        <rect key="frame" x="290" y="56" width="133" height="126.5"/>
+                    </imageView>
+                    <label opaque="NO" userModelInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Review | Netflix’s new ‘Salt Fat Acid Heat’ is unlike any other food show on TV&quot;," textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="341" translatesAutoresizingMaskIntoConstraints="NO" numberOfLines="2">
+                        <rect key="frame" x="9" y="8" width="409" height="41"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17" weight="heavy"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userModelInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="347" translatesAutoresizingMaskIntoConstraints="NO" numberOfLines="7">
+                        <rect key="frame" x="9" y="56" width="273" height="122.5"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                        <string key="text">Theres a perfect word that sums up everything about Netflixs new cooking show, Salt Fat Acid Heat, and it emerges over a meal that the star, Samin Nosrat, is enjoying with her hosts in Japan, where she has just learned the traditional way of making soy sauce.…</string>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="692" translatesAutoresizingMaskIntoConstraints="NO" text="&quot;2018-10-15T17:00:00Z&quot;">
+                        <rect key="frame" x="120.5" y="186.5" width="156.5" height="16.5"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint id="1180" firstItem="341" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="8"/>
+                    <constraint id="1182" firstItem="341" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="9"/>
+                    <constraint id="1184" firstAttribute="trailing" secondItem="341" secondAttribute="trailing" constant="15"/>
+                    <constraint id="1185" firstItem="347" firstAttribute="top" secondItem="341" secondAttribute="bottom" constant="7"/>
+                    <constraint id="1186" firstItem="347" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="9"/>
+                    <constraint id="1188" firstItem="692" firstAttribute="top" secondItem="347" secondAttribute="bottom" constant="8"/>
+                    <constraint id="1189" firstAttribute="centerX" secondItem="347" secondAttribute="centerX" constant="71"/>
+                    <constraint id="1194" firstAttribute="centerX" secondItem="692" secondAttribute="centerX" constant="18"/>
+                    <constraint id="1734" firstItem="340" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="56"/>
+                    <constraint id="1735" firstItem="340" firstAttribute="centerX" secondItem="YTl-1W-gDM" secondAttribute="centerX" constant="140"/>
+                    <constraint id="1905" firstAttribute="bottom" secondItem="340" secondAttribute="bottom" constant="32"/>
+                    <constraint id="1906" firstAttribute="trailing" secondItem="340" secondAttribute="trailing" constant="10"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="lblTitle" destination="341" id="name-outlet-341"/>
+                <outlet property="imageNews" destination="340" id="name-outlet-340"/>
+                <outlet property="lblDescription" destination="347" id="name-outlet-347"/>
+                <outlet property="lblPublishingDate" destination="692" id="name-outlet-692"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
