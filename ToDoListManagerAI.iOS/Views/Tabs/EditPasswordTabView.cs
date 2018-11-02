@@ -50,15 +50,15 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             tbxNewPass.EditingDidEnd += (sender, e) => { ViewModel.IsPasswordValid(); };
             tbxConfNewPass.EditingDidEnd += (sender, e) => { ViewModel.CheckConfirmPassword(); };
             btnSavePass.TouchDown += (sender, e) => {
-                if (ViewModel.IsNewPasswordValid && ViewModel.IsOldPasswordValid )
-                {
+                //if (ViewModel.IsNewPasswordValid && ViewModel.IsOldPasswordValid )
+                //{
                     ViewModel.Validate();
-                }
-                else
-                {
-                    ViewModel.AlertMessage = "Fields was filled incorrectly!";
-                    ViewModel.AlertColor = UIColor.Red;
-                }
+                //}
+                //else
+                //{
+                //    ViewModel.AlertMessage = "Fields was filled incorrectly!";
+                //    ViewModel.AlertColor = UIColor.Red;
+                //}
             };
         }
 
