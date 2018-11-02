@@ -12,8 +12,9 @@ using System.Threading;
 
 namespace TodoListManager.Core.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public class LoginViewModel : BaseViewModel<UserModel>
     {
+        private UserModel _user;
         public LoginViewModel(IMvxNavigationService navigationService, IDbService dbService)
             : base(navigationService)
         {
@@ -68,6 +69,11 @@ namespace TodoListManager.Core.ViewModels
             Thread.CurrentThread.Abort();
         }
 
+        public override void Prepare(UserModel parameter)
+        {
+            _user = parameter;
+        }
+
         public override async Task Initialize()
         {
             await base.Initialize();
@@ -79,7 +85,7 @@ namespace TodoListManager.Core.ViewModels
             if (_isValid)
             {
                 await NavigationService.Navigate<HomeViewModel, UserModel>(_userModel);
-                await NavigationService.Close(this);
+                ViewDispose(this);
             }
         }
         private async Task SignUpAsync()

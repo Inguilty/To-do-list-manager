@@ -7,15 +7,11 @@ using MvvmCross.ViewModels;
 
 namespace TodoListManager.Core.ViewModels
 {
-    public abstract class BaseViewModel : MvxViewModel
+    public abstract class BaseViewModel<TParameter> : MvxViewModel<TParameter>
     {
         private string _alert;
         protected readonly IMvxNavigationService NavigationService;
 
-        public BaseViewModel()
-        {
-                
-        }
         protected BaseViewModel(IMvxNavigationService navigationService)
         {
             NavigationService = navigationService;
@@ -35,9 +31,9 @@ namespace TodoListManager.Core.ViewModels
             RaiseAllPropertiesChanged();
         }
 
-        public virtual void ViewDispose()
+        protected virtual void ViewDispose(IMvxViewModel model)
         {
-            NavigationService.Close(this);
+            NavigationService.Close(model);
         }
         public virtual void Validate() { }
     }

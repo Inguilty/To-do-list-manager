@@ -16,11 +16,13 @@ using UIKit;
 namespace TodoListManager.Core.ViewModels
 {
 
-    public class EditPasswordTabViewModel : MvxViewModel<ProfileTabViewModel>//<IDbService/*,ProfileTabViewModel*/>
+    public class EditPasswordTabViewModel : BaseViewModel<UserModel> //MvxViewModel<ProfileTabViewModel>
     {
-        public EditPasswordTabViewModel(IMvxNavigationService navigationService)
+        public EditPasswordTabViewModel(IMvxNavigationService navigationService, IDbService dbService)
+        :base(navigationService)
         {
             _navigationService = navigationService;
+            _dataService = dbService;
         }
 
         #region Fields and properties    
@@ -35,7 +37,8 @@ namespace TodoListManager.Core.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private IDbService _dataService;
         private bool _result = false;
-        
+        private UserModel _user;
+
         public UIColor AlertColor
         {
             get => _alertColor;
@@ -91,26 +94,30 @@ namespace TodoListManager.Core.ViewModels
 
         private void Cancel()
         {
-            _navigationService.Close(this);
+            ViewDispose(this);
             _result = false;
-            _model.Result += () => _result;
-            _model.Begin();
+            //_model.Result += () => _result;
+            //_model.Begin();
         }
 
-        private ProfileTabViewModel _model;
-        public override void Prepare(ProfileTabViewModel dataService)
+        //private ProfileTabViewModel _model;
+        //public override void Prepare(ProfileTabViewModel dataService)
+        //{
+        //    _model = dataService;
+        //    _dataService = new DbService();
+        //    //_dataService = dataService;
+        //}
+
+        public override void Prepare(UserModel parameter)
         {
-            _model = dataService;
-            _dataService = new DbService();
-            //_dataService = dataService;
+            _user = parameter;
         }
-
         #region Validation
         public void CheckOldPassword()
         {
             if (!string.IsNullOrEmpty(_oldPassword))
             {
-                var user = _dataService.Query<UserModel>("SELECT * FROM Users WHERE Password = ? AND Login = ?", _oldPassword, HomeViewModel.UserModel.Login).SingleOrDefault();
+                var user = _dataService.Query<UserModel>("SELECT * FROM Users WHERE Password = ? AND Login = ?", _oldPassword, _user.Login).SingleOrDefault();
                 if (user == null)
                 {
                     AlertColor = UIColor.Red;
@@ -183,60 +190,60 @@ namespace TodoListManager.Core.ViewModels
             }
         }
 
-        public void Validate()
+        public override void Validate()
         {
-            var _user = _dataService.GetItem<UserModel>(HomeViewModel.UserModel.Id);
+            var equal = _newPassword == _confirmNewPassword;
+            var user = _dataService.GetItem<UserModel> (_user.Id);
 
-            if (!string.IsNullOrEmpty(_newPassword) && IsNewPasswordValid && IsOldPasswordValid && (_newPassword == _confirmNewPassword) && !string.IsNullOrEmpty(_oldPassword) &&
-                !string.IsNullOrEmpty(_confirmNewPassword))
+            if ((_oldPassword == user.Password) && (_newPassword?.Length >= 6) && (_newPassword?.Length <= 36) && equal)
             {
+                user.Password = NewPassword;
                 _user.Password = NewPassword;
-                HomeViewModel.UserModel.Password = NewPassword;
                 AlertMessage = "";
                 AlertColor = UIColor.Green;               
-                NewPassword = "";
-                OldPassword = "";
-                ConfirmNewPassword = "";
-                _dataService.SaveItem<UserModel>(_user);
-                _navigationService.Close(this);
+                _dataService.SaveItem<UserModel>(user);
+                ViewDispose(this);
                 _result = true;
-
-                
-                
+                //_model.Result += () => _result;
+                //_model.Begin();
+                return;
             }
-            else if (string.IsNullOrEmpty(_newPassword)|| string.IsNullOrEmpty(_oldPassword) || string.IsNullOrEmpty(_confirmNewPassword))
+            if (string.IsNullOrEmpty(_newPassword)|| string.IsNullOrEmpty(_oldPassword) || string.IsNullOrEmpty(_confirmNewPassword))
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "Not all required fields was filled!";
                 _result = false;
-            }           
-            else if (!IsOldPasswordValid)
+                //_model.Result += () => _result;
+                //_model.Begin();
+                return;
+            }
+            if (_oldPassword != user.Password)
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "Old password is wrong!";
                 _result = false;
+                //_model.Result += () => _result;
+                //_model.Begin();
+                return;
             }
-            else if (!IsNewPasswordValid)
+            if ((_newPassword?.Length < 6) || (_newPassword?.Length > 36))
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "New password does not fit!";
                 _result = false;
+                //_model.Result += () => _result;
+                //_model.Begin();
+                return;
             }
-            else if (_newPassword != _confirmNewPassword)
+            if (_newPassword != _confirmNewPassword)
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "New and confirm password do not match!";
                 _result = false;
-            }
-            else
-            {
-                AlertColor = UIColor.Red;
-                AlertMessage = "Fields was filled incorrectly!";
-                _result = false;
-            }
-            _model.Result += () => _result;
-            _model.Begin();
+                //_model.Result += () => _result;
+                //_model.Begin();
+            }            
         }
-        #endregion
+        #endregion      
     }
 }

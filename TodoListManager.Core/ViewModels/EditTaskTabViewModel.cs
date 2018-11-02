@@ -11,15 +11,17 @@ using UIKit;
 
 namespace TodoListManager.Core.ViewModels
 {
-    public class EditTaskTabViewModel : MvxViewModel<TaskModel, IDbService>
+    public class EditTaskTabViewModel : BaseViewModel <CellContent>
     {
-        public EditTaskTabViewModel(IMvxNavigationService service,IDbService dataService)
+        public EditTaskTabViewModel(IMvxNavigationService service, IDbService dataService)
+        : base(service)
         {
             _service = service;
             _dataService = dataService;
         }
 
         #region Fields and Properties
+        private UserModel _user;
         private string _taskTitle;
         private string _description;
         private DateTime _deadline;
@@ -28,7 +30,7 @@ namespace TodoListManager.Core.ViewModels
         private readonly IDbService _dataService;
 
         public string Title { get; private set; }
-        public TaskModel CurrentTask { get; private set; }
+        private TaskModel _currentTask;
         public string TaskTitle
         {
             get => _taskTitle;
@@ -75,7 +77,7 @@ namespace TodoListManager.Core.ViewModels
         {
             var deadline = (DateTime)deadlineDate;
             var currentDate = DateTime.Now;
-            
+
             if (deadline <= currentDate)
             {
                 TskStatus = 2;
@@ -87,7 +89,7 @@ namespace TodoListManager.Core.ViewModels
             Deadline = deadline;
         }
 
-        private void  Save()
+        private void Save()
         {
             var stat = Enums.TaskStatus.NotDone;
             if (_status == 0)
@@ -97,7 +99,7 @@ namespace TodoListManager.Core.ViewModels
             else if (_status == 2)
                 stat = Enums.TaskStatus.Done;
 
-            var item = _dataService.GetItem<TaskModel>(CurrentTask.Id);
+            var item = _dataService.GetItem<TaskModel>(_currentTask.Id);
 
             item.Title = TaskTitle;
             item.Description = this.Description;
@@ -105,8 +107,8 @@ namespace TodoListManager.Core.ViewModels
             item.Status = stat;
 
             _dataService.SaveItem<TaskModel>(item);
-            _service.Navigate<HomeViewModel>();
-            _service.Close(this);
+            _service.Navigate<HomeViewModel, UserModel>(_user);
+            ViewDispose(this);
         }
 
         private void DeleteTask()
@@ -123,31 +125,32 @@ namespace TodoListManager.Core.ViewModels
             {
                 if (args.ButtonIndex == 0)
                 {
-                    _dataService.DeleteItem<TaskModel>(CurrentTask.Id);
-                    _service.Navigate<HomeViewModel>();
-                    _service.Close(this);
+                    _dataService.DeleteItem<TaskModel>(_currentTask.Id);
+                    _service.Navigate<HomeViewModel, UserModel>(_user);
+                    ViewDispose(this);
                 }
             };
-
         }
 
-        public override void Prepare(TaskModel parameter)
+        public override void Prepare(CellContent parameter)
         {
-            Title = parameter.Title;
-            CurrentTask = parameter;
+            Title = parameter.Task.Title;
+
+            _user = parameter.User;
+            _currentTask = parameter.Task;
 
             byte stat = 0;
-            if (parameter.Status == Enums.TaskStatus.NotDone)
+            if (parameter.Task.Status == Enums.TaskStatus.NotDone)
                 stat = 0;
-            else if (parameter.Status == Enums.TaskStatus.InProcess)
+            else if (parameter.Task.Status == Enums.TaskStatus.InProcess)
                 stat = 1;
-            else if (parameter.Status == Enums.TaskStatus.Done)
+            else if (parameter.Task.Status == Enums.TaskStatus.Done)
                 stat = 2;
 
-            TaskTitle = parameter.Title;
-            Description = parameter.Description;
+            TaskTitle = parameter.Task.Title;
+            Description = parameter.Task.Description;
             TskStatus = stat;
-            Deadline = parameter.Deadline;
+            Deadline = parameter.Task.Deadline;
             base.Prepare();
         }
     }

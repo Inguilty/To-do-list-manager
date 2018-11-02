@@ -6,7 +6,7 @@ using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.ViewModels;
 using TodoListManager.Core.Services;
 using TodoListManager.Core.ViewModels;
-
+using ToDoListManagerAI.iOS.Views.Tabs;
 using UIKit;
 
 namespace ToDoListManagerAI.iOS.Views
@@ -66,6 +66,8 @@ namespace ToDoListManagerAI.iOS.Views
             var navigationService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
 
             AddService<RegistrationView, RegistrationViewModel>(filePickerService, dataService, navigationService);
+            AddService<EditPasswordTabView, EditPasswordTabViewModel>(navigationService, dataService);
+            
         }
         private UIViewController AddService<TCtrl, TViewModel>(params object[] services)
             where TCtrl : MvxViewController

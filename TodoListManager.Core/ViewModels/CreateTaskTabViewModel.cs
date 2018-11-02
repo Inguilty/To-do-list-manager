@@ -14,9 +14,10 @@ using UIKit;
 
 namespace TodoListManager.Core.ViewModels
 {
-    public class CreateTaskTabViewModel : MvxViewModel<IMvxNavigationService, IDbService>
-    {
-        public CreateTaskTabViewModel(IDbService dataService)
+    public class CreateTaskTabViewModel : BaseViewModel<UserModel>
+    {       
+        public CreateTaskTabViewModel(IMvxNavigationService navigationService,
+            IDbService dataService): base(navigationService)
         {
             _dataService = dataService;
         }
@@ -27,9 +28,8 @@ namespace TodoListManager.Core.ViewModels
         private DateTime _deadline;
         private byte _status;
         private readonly IDbService _dataService;
+        private UserModel _user;
 
-        public IMvxNavigationService NavigationServiceProp { get; private set; }
-        public string Title { get; set; }
         public string TaskTitle
         {
             get => _taskTitle;
@@ -85,17 +85,17 @@ namespace TodoListManager.Core.ViewModels
                 else if (_status == 2)
                     stat = Enums.TaskStatus.Done;
 
-                var model = new TaskModel()
+                var model = new TaskModel
                 {
                     Title = TaskTitle,
                     Description = this.Description,
                     Deadline = this.Deadline,
                     Status = stat,
-                    UserId = HomeViewModel.UserModel.Id
+                    UserId = _user.Id
                 };
                 _dataService.SaveItem(model);
-                NavigationServiceProp.Navigate<HomeViewModel>();
-                NavigationServiceProp.Close(this);
+                NavigationService.Navigate<HomeViewModel,UserModel>(_user);
+                ViewDispose(this);
             }
             else
             {
@@ -108,9 +108,9 @@ namespace TodoListManager.Core.ViewModels
                 alert.Show();
             }
         }
-        public override void Prepare(IMvxNavigationService parameter)
+        public override void Prepare(UserModel parameter)
         {
-            NavigationServiceProp = parameter;
+            _user = parameter;
             base.Prepare();
         }
 

@@ -18,7 +18,7 @@ using UIKit;
 
 namespace TodoListManager.Core.ViewModels
 {
-    public class NewsTabViewModel : BaseViewModel
+    public class NewsTabViewModel : BaseViewModel<UserModel>
     {
         public NewsTabViewModel(IMvxNavigationService navigationService, IRssService rss)
             : base(navigationService)
@@ -28,6 +28,7 @@ namespace TodoListManager.Core.ViewModels
             News = new MvxObservableCollection<NewsModel>();
         }
 
+        private UserModel _user;
         private IRssService _rssService;
         private MvxObservableCollection<NewsModel> _news;
         public MvxObservableCollection<NewsModel> News
@@ -38,6 +39,11 @@ namespace TodoListManager.Core.ViewModels
                 _news = value;
                 RaisePropertyChanged();
             }
+        }
+
+        public override void Prepare(UserModel parameter)
+        {
+            _user = parameter;
         }
 
         public override async Task Initialize()
@@ -66,14 +72,5 @@ namespace TodoListManager.Core.ViewModels
             var controller = window.RootViewController;
             await controller.PresentViewControllerAsync(browser, true);
         }
-    }
-
-    public class NewsViewItem
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Picture { get; set; }
-        public string PublicationDate { get; set; }
-        public string Link { get; set; }
     }
 }

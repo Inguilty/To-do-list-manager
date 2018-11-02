@@ -46,7 +46,6 @@ namespace ToDoListManagerAI.iOS.Views
             settingsButton.TouchDown += ActionSheetButtonsTouchUpInside;
             NavigationItem.RightBarButtonItem = new UIBarButtonItem(settingsButton);
 
-            var addTaskService = ViewModel.AddCommand;
             var filePickerService = Mvx.IoCProvider.Resolve<IFilePickerService>();
             var navigationService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
             var rssService = Mvx.IoCProvider.Resolve<IRssService>();
@@ -54,9 +53,9 @@ namespace ToDoListManagerAI.iOS.Views
 
             var tabBarViewControllers = new[]
             {                
-                CreateTableViewController<TasksTabView, TasksTabViewModel>("Tasks","paper-plane.png",0 ,navigationService, addTaskService, dbService),
+                CreateTableViewController<TasksTabView, TasksTabViewModel>("Tasks","paper-plane.png",0 ,navigationService, dbService, ViewModel.User),
                 CreateTableViewController<NewsTabView, NewsTabViewModel>("News", "newspaper.png",1,navigationService,rssService),
-                CreateTableViewController<ProfileTabView,ProfileTabViewModel>("Profile","avatar.png",2, navigationService, filePickerService, dbService),
+                CreateTableViewController<ProfileTabView,ProfileTabViewModel>("Profile","avatar.png",2, navigationService, filePickerService, dbService, ViewModel.User),
             };
 
             ViewControllers = tabBarViewControllers;

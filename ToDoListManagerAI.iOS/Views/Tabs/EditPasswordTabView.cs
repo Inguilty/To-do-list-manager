@@ -18,7 +18,7 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         {
 
         }
-        
+
         public EditPasswordTabView(IntPtr handle) : base(handle)
         {
         }
@@ -49,23 +49,7 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             tbxOldPass.EditingDidEnd += (sender, e) => { ViewModel.CheckOldPassword(); };
             tbxNewPass.EditingDidEnd += (sender, e) => { ViewModel.IsPasswordValid(); };
             tbxConfNewPass.EditingDidEnd += (sender, e) => { ViewModel.CheckConfirmPassword(); };
-            btnSavePass.TouchDown += (sender, e) => {
-                //if (ViewModel.IsNewPasswordValid && ViewModel.IsOldPasswordValid )
-                //{
-                    ViewModel.Validate();
-                //}
-                //else
-                //{
-                //    ViewModel.AlertMessage = "Fields was filled incorrectly!";
-                //    ViewModel.AlertColor = UIColor.Red;
-                //}
-            };
-        }
-
-        public override void ViewDidDisappear(bool animated)
-        {
-            base.ViewDidDisappear(animated);
-            //ProfileTabViewModel.Begin();
+            btnSavePass.TouchDown += (sender, e) => { ViewModel.Validate(); };
         }
     }
 }

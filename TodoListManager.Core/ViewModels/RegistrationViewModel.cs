@@ -16,7 +16,7 @@ using UIKit;
 
 namespace TodoListManager.Core.ViewModels
 {
-    public class RegistrationViewModel : BaseViewModel
+    public class RegistrationViewModel : BaseViewModel<UserModel>
     {
         public RegistrationViewModel(IFilePickerService filePicker, IDbService dataService, IMvxNavigationService navigationService)
             : base(navigationService)
@@ -36,6 +36,7 @@ namespace TodoListManager.Core.ViewModels
         private string _password;
         private byte[] _profilePicture;
         private bool _isValid;
+        private UserModel _user;
 
         public string FirstName
         {
@@ -93,12 +94,17 @@ namespace TodoListManager.Core.ViewModels
         }
         #endregion
 
+        public override void Prepare(UserModel parameter)
+        {
+            _user = parameter;
+        }
+
         public override async Task Initialize()
         {
             await base.Initialize();
         }
 
-        public ICommand SubmitCommand => new MvxAsyncCommand(SubmitRegistration);
+        public ICommand SubmitCommand => new MvxCommand(SubmitRegistration);
         public ICommand ChooseFileCommand => new MvxAsyncCommand(ChooseFile);
 
         private async Task ChooseFile()
@@ -115,7 +121,7 @@ namespace TodoListManager.Core.ViewModels
             UploadImageFinally?.Invoke();
         }
 
-        private async Task SubmitRegistration()
+        private void SubmitRegistration()
         {
             if (_isValid)
             {
@@ -130,9 +136,8 @@ namespace TodoListManager.Core.ViewModels
                     photo = this.ProfilePicture
                 };
                 _dataService.SaveItem(newUser);
-                await NavigationService.Close(this);
-            }
-            
+                ViewDispose(this);
+            }           
         }
 
         #region  Validation

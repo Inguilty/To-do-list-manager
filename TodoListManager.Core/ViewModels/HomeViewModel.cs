@@ -12,34 +12,26 @@ using UIKit;
 
 namespace TodoListManager.Core.ViewModels
 {
-    public class HomeViewModel : MvxViewModel<UserModel>
+    public class HomeViewModel : BaseViewModel<UserModel>
     {
         public HomeViewModel(IMvxNavigationService navigationService)
+            : base(navigationService)
         {
-            _navigationService = navigationService;
         }
 
-        private readonly IMvxNavigationService _navigationService;
-
-        public static UserModel UserModel { get; private set; }
+        public UserModel User;
 
         public override void Prepare(UserModel userModel)
         {
-            UserModel = userModel;
+            User = userModel;
             base.Prepare();
         }
 
         public ICommand LogOutCommand => new MvxCommand(LogOut);
         public void LogOut()
         {
-             _navigationService.Navigate<LoginViewModel>();
-             _navigationService.Close(this);
-        }
-
-        public ICommand AddCommand => new MvxCommand<IMvxNavigationService>(AddTask);
-        private void AddTask(IMvxNavigationService navigationService)
-        {
-             _navigationService.Navigate<CreateTaskTabViewModel, IMvxNavigationService, IDbService>(navigationService);
+            NavigationService.Navigate<LoginViewModel>();
+            ViewDispose(this);
         }
 
         public void About()

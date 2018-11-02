@@ -16,35 +16,18 @@ using TaskStatus = TodoListManager.Core.Enums.TaskStatus;
 
 namespace TodoListManager.Core.ViewModels
 {
-    public class TasksTabViewModel : BaseViewModel
+    public class TasksTabViewModel : BaseViewModel<UserModel>
     {
-        public TasksTabViewModel(IMvxNavigationService navigationService, ICommand addCommand, IDbService dbService)
+        public TasksTabViewModel(IMvxNavigationService navigationService, IDbService dbService, UserModel user)
             : base(navigationService)
         {
             Title = "Tasks";
-            AddCommand = addCommand;
             Tasks = new MvxObservableCollection<TaskModel>();
+            _user = user;
             _dataService = dbService;
             _taskService = new TaskService(dbService);
         }
 
-        #region Fields and Commands
-        public ICommand AddCommand { get; }
-        private MvxObservableCollection<TaskModel> _tasksCollection;
-        private readonly IDbService _dataService;
-        private TaskModel _task;
-        private readonly TaskService _taskService;
-
-        private void AddTask()
-        {
-            NavigationService.Navigate<CreateTaskTabViewModel>();
-        }
-
-        //public ICommand EditTaskCommand => new MvxCommand<TaskModel,int>(EditTask);
-        //public ICommand ChangeTaskStatusCommand => new MvxCommand<TaskModel>(ChangeTaskStatus);
-        //public ICommand DeleteTaskCommand => new MvxCommand<TaskModel>(DeleteTask);
-
-        public IMvxNavigationService NavigationServiceProp => NavigationService;
         public MvxObservableCollection<TaskModel> Tasks
         {
             get => _tasksCollection;
@@ -54,12 +37,28 @@ namespace TodoListManager.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        #region Fields  
+        private MvxObservableCollection<TaskModel> _tasksCollection;
+        private CellContent _cellAndUser;
+        private readonly IDbService _dataService;
+        private TaskModel _task;
+        private readonly TaskService _taskService;
+        private UserModel _user;
         #endregion
 
+        #region Comands     
+        public void AddCommand()
+        {
+            NavigationService.Navigate<CreateTaskTabViewModel,UserModel>(_user);
+            ReloadTable();
+        }
         public void EditTaskCommand(TaskModel cellData, int id)
         {
-            NavigationService.Navigate<EditTaskTabViewModel, TaskModel,IDbService>(_task);
-            ReloadCell(id, _task.Id);
+            _cellAndUser = new CellContent(_user,_task);
+            NavigationService.Navigate<EditTaskTabViewModel, CellContent>(_cellAndUser);
+            //NavigationService.Navigate<EditTaskTabViewModel, TaskModel>(_task);
+            ReloadTable();
         }
         public void ChangeTaskStatusCommand(TaskModel cellData, int id)
         {
@@ -71,6 +70,7 @@ namespace TodoListManager.Core.ViewModels
             _taskService.Delete(cellData);
             ReloadTable();
         }
+        #endregion
 
         private void ReloadCell(int idCell, int taskId)
         {
@@ -80,7 +80,7 @@ namespace TodoListManager.Core.ViewModels
         private void ReloadTable()
         {
             Tasks = new MvxObservableCollection<TaskModel>();
-            var taskList = _taskService.GetUserTasks(HomeViewModel.UserModel);
+            var taskList = _taskService.GetUserTasks(_user);
             foreach (var el in taskList.ToList())
             {
                 if (el.Deadline < DateTime.Now)
@@ -99,9 +99,14 @@ namespace TodoListManager.Core.ViewModels
             }
         }
 
+        public override void Prepare(UserModel parameter)
+        {
+            _user = parameter;
+        }
+
         public override async Task Initialize()
         {
-            var taskList = _taskService.GetUserTasks(HomeViewModel.UserModel);
+            var taskList = _taskService.GetUserTasks(_user);
             foreach (var el in taskList.ToList())
             {
                 if (el.Deadline < DateTime.Now)
@@ -126,6 +131,18 @@ namespace TodoListManager.Core.ViewModels
         public void CurrentTask(TaskModel model)
         {
             _task = model;
+        }
+    }
+
+    public class CellContent
+    {
+        public UserModel User;
+        public TaskModel Task;
+
+        public CellContent(UserModel user, TaskModel task)
+        {
+            User = user;
+            Task = task;
         }
     }
 }

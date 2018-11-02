@@ -3,9 +3,13 @@ using System;
 using CoreAnimation;
 using CoreImage;
 using Foundation;
+using MvvmCross;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Navigation;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Views;
+using MvvmCross.ViewModels;
+using TodoListManager.Core.Services;
 using TodoListManager.Core.ViewModels;
 using ToDoListManagerAI.iOS.Services;
 using UIKit;
@@ -62,6 +66,7 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
                 btnChooseFile.Enabled = false;
                 btnChooseFile.Hidden = true;
             };
+            
         }
 
         private void InitializeView()
@@ -103,7 +108,7 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
                     btnChooseFile.Enabled = true;
                     btnChooseFile.Hidden = false;
                     ViewModel.AlertMessage = "";
-                    ViewModel.Email = HomeViewModel.UserModel.Email;
+                    //ViewModel.Email = HomeViewModel.UserModel.Email;
                 }
                 else
                 {
@@ -126,7 +131,6 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
                 imageViewAvatar.Image = UIImage.LoadFromData(data);
             }
         }
-
 
         public override void ViewDidAppear(bool animated)
         {

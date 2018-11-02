@@ -27,8 +27,8 @@ namespace ToDoListManagerAI.iOS.Views.Cells
         public ICommand SetStatusColorCommand => new MvxCommand<UIColor>(StatusColorCommand);
         public void StatusColorCommand(UIColor color)
         {
-            if(color != null)
-            lblStatus.TextColor = color;
+            if (color != null)
+                lblStatus.TextColor = color;
         }
         public ICommand SetDeadlineCommand => new MvxCommand<string>(SetDeadline);
         public void SetDeadline(string deadline)
@@ -49,8 +49,6 @@ namespace ToDoListManagerAI.iOS.Views.Cells
                 set.Apply();
             });
         }
-
-  
     }
 
     public class TaskItem

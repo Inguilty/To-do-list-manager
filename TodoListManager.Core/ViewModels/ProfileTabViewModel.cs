@@ -14,14 +14,15 @@ using UIKit;
 
 namespace TodoListManager.Core.ViewModels
 {
-    public class ProfileTabViewModel : BaseViewModel
+    public class ProfileTabViewModel : BaseViewModel<UserModel>
     {
-        public ProfileTabViewModel(IMvxNavigationService navigationService, IFilePickerService service, IDbService dataService)
+        public ProfileTabViewModel(IMvxNavigationService navigationService, IFilePickerService service, IDbService dataService,UserModel user)
             : base(navigationService)
         {
             Title = "Profile";
             _dataService = dataService;
             _filePicker = service;
+            _user = user;
             InitializeUserData();
         }
 
@@ -35,7 +36,7 @@ namespace TodoListManager.Core.ViewModels
         private byte[] _profileImage;
         private readonly IDbService _dataService;
         private readonly IFilePickerService _filePicker;
-
+        private UserModel _user;
 
         public UIColor AlertColor
         {
@@ -84,12 +85,13 @@ namespace TodoListManager.Core.ViewModels
             }
         }
         #endregion
+
         public void InitializeUserData()
         {
-            _firstName = HomeViewModel.UserModel.FirstName;
-            _lastName = HomeViewModel.UserModel.LastName;
-            _profileImage = HomeViewModel.UserModel.photo;
-            _email = HomeViewModel.UserModel.Email.ToLower();
+            _firstName = _user.FirstName;
+            _lastName = _user.LastName;
+            _profileImage = _user.photo;
+            _email = _user.Email.ToLower();
         }
 
         public ICommand SaveCommand => new MvxCommand(Validate);
@@ -97,30 +99,31 @@ namespace TodoListManager.Core.ViewModels
 
         public event ChangePasswordResult Result;
 
-        public void Begin()
-        {
-            if (Result != null && Result.Invoke())
-            {
-                AlertMessage = "Password has been successfully changed!";
-                AlertColor = UIColor.Green;
-            }
-            else
-            {
-                AlertMessage = "";
-                AlertColor = UIColor.Red;
-            }
-        }
+        //public void Begin()
+        //{
+        //    if (Result != null && Result.Invoke())
+        //    {
+        //        AlertMessage = "Password has been successfully changed!";
+        //        AlertColor = UIColor.Green;
+        //    }
+        //    else
+        //    {
+        //        AlertMessage = "";
+        //        AlertColor = UIColor.Red;
+        //    }
+        //}
+
         private void ChangePassword()
         {
-            var cls = this;
-            NavigationService.Navigate<EditPasswordTabViewModel, /*IDbService*/ProfileTabViewModel > (/*_dataService*/cls);
+            //var cls = this;
+            NavigationService.Navigate<EditPasswordTabViewModel, UserModel > (_user);
         }
 
         public ICommand UploadImageCommand => new MvxAsyncCommand(UploadImageAsync);
 
         private async Task UploadImageAsync()
         {
-            var pickedFileModel = await _filePicker.UploadImageAsync(HomeViewModel.UserModel.Id);
+            var pickedFileModel = await _filePicker.UploadImageAsync(_user.Id);
             _profileImage = pickedFileModel.ImageBytes;
             OnUploadImageFinally();
         }
@@ -132,6 +135,11 @@ namespace TodoListManager.Core.ViewModels
             UploadImageFinally?.Invoke();
         }
 
+        public override void Prepare(UserModel parameter)
+        {
+            _user = parameter;
+        }
+
         #region Validation
         public void CheckEmail()
         {
@@ -141,43 +149,43 @@ namespace TodoListManager.Core.ViewModels
                 AlertMessage = "Enter e-mail address!";
                 AlertColor = UIColor.Red;
                 _emailValid = false;
+                return;
             }
-            else if (!Regex.Match(_email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$").Success)
+            if (!Regex.Match(_email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$").Success)
             {
                 AlertColor = UIColor.Red;
                 AlertMessage = "E-mail address is invalid!";
                 _emailValid = false;
+                return;
             }
-            else
-                _emailValid = true;
+            _emailValid = true;
         }
 
 
 
         public override void Validate()
         {
-            var user = _dataService.GetItem<UserModel>(HomeViewModel.UserModel.Id);
-            var email = HomeViewModel.UserModel.Email;
-            if (!string.IsNullOrEmpty(_email.ToLower()) && _emailValid && (_email.ToLower() != HomeViewModel.UserModel.Email))
+            var user = _dataService.GetItem<UserModel>(_user.Id);
+            var email = _user.Email;
+            if (!string.IsNullOrEmpty(_email.ToLower()) && _emailValid && (_email.ToLower() != _user.Email))
             {
                 user.Email = this.Email.ToLower();
-                HomeViewModel.UserModel.Email = this.Email;
+                _user.Email = this.Email;
                 _dataService.SaveItem<UserModel>(user);
                 AlertColor = UIColor.Green;
                 AlertMessage = "All changes were successfully saved!";
+                return;
             }
-            else if (!string.IsNullOrEmpty(_email.ToLower()) && _emailValid && (_email.ToLower() == HomeViewModel.UserModel.Email))
+            if (!string.IsNullOrEmpty(_email.ToLower()) && _emailValid && (_email.ToLower() == _user.Email))
             {
                 AlertColor = UIColor.Green;
                 ChangesResult = true;
                 AlertMessage = "All changes were successfully saved!";
+                return;
             }
-            else
-            {
-                Email = email;
-            }
+            Email = email;           
         }
-        #endregion      
+        #endregion     
     }
 
     public delegate bool ChangePasswordResult();

@@ -15,13 +15,13 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
 {
     public partial class TasksTabView : MvxViewController<TasksTabViewModel>
     {
+        private readonly UIButton _addButton;
+        private MySimpleTableViewSource _source;
         public TasksTabView() : base(nameof(TasksTabView), null)
         {
             _addButton = new UIButton();
         }
-
-        private readonly UIButton _addButton;
-
+        
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
@@ -36,33 +36,34 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         {
             AsyncInitialize();
             base.ViewDidLoad();
-            //TabBarController.NavigationItem.LeftBarButtonItems = new UIBarButtonItem[] { TabBarController.NavigationItem.RightBarButtonItems[0], new UIBarButtonItem(_addButton) };
+            TabBarController.NavigationItem.LeftBarButtonItems = new UIBarButtonItem[] { TabBarController.NavigationItem.RightBarButtonItems[0], new UIBarButtonItem(_addButton) };
             _addButton.TouchDown += delegate
             {
-                ViewModel.AddCommand.Execute(ViewModel.NavigationServiceProp);
+                ViewModel.AddCommand();
+                ReloadRows();
             };
             _addButton.TranslatesAutoresizingMaskIntoConstraints = false;
             _addButton.WidthAnchor.ConstraintEqualTo(32.0f).Active = true;
             _addButton.HeightAnchor.ConstraintEqualTo(32.0f).Active = true;
             _addButton.SetImage(new UIImage("add.png"), UIControlState.Normal);
 
-            var source = new MySimpleTableViewSource(tasksTable, TasksTableViewCell.Key, TasksTableViewCell.Key);
+            _source = new MySimpleTableViewSource(tasksTable, TasksTableViewCell.Key, TasksTableViewCell.Key);
 
             var set = this.CreateBindingSet<TasksTabView, TasksTabViewModel>();
-            set.Bind(source).To(vm => vm.Tasks);
+            set.Bind(_source).To(vm => vm.Tasks);
             set.Apply();
 
-            tasksTable.Source = source;
+            tasksTable.Source = _source;
             tasksTable.ContentInset = UIEdgeInsets.FromString("20.0, 20.0, 20.0, 20.0");
             tasksTable.RowHeight = 100;
             tasksTable.ReloadData();
 
-            source.SelectedItemChanged += (args, e) =>
+            _source.SelectedItemChanged += (args, e) =>
             {
                 NSIndexPath indexPath = tasksTable.IndexPathForSelectedRow;
                 int index = indexPath.Row;
                 ActionSheetButtonsTouchUpInside(args, e, index);
-                ViewModel.CurrentTask((TaskModel)source.SelectedItem);
+                ViewModel.CurrentTask((TaskModel)_source.SelectedItem);
             };
         }
 
@@ -97,7 +98,6 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
                     ViewModel.DeleteTaskCommand(currCell, index);
                     ReloadRows();
                 }
-
             };
 
             actionSheet.ShowInView(View);
