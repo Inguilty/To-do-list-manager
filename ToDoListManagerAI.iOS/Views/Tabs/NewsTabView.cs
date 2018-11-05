@@ -109,7 +109,8 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         {
             var newsData = GetItemAt(indexPath);
             NewsModel model = (NewsModel)newsData;
-            Foundation.NSData data = NSData.FromUrl(new NSUrl(model.Picture));
+            var data = NSData.FromUrl(new NSUrl(model.Picture));
+            if(data != null)
             ((NewsTableViewCell)cell).SetNewsImageCommand.Execute(new UIImage(data));
         }
 

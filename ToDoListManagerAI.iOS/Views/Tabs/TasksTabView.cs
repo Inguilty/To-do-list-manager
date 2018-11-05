@@ -55,7 +55,7 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
                 var indexPath = tasksTable.IndexPathForSelectedRow;
                 var index = indexPath.Row;
                 ActionSheetButtonsTouchUpInside(args, e, index);
-                ViewModel.CurrentTask((TaskModel)_source.SelectedItem);
+                ViewModel.CurrentTask((CurrentTaskItem)_source.SelectedItem);
             };
         }
 
@@ -71,7 +71,7 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
             actionSheet.CancelButtonIndex = 3;
 
             var source = sender as MvxSimpleTableViewSource;
-            var currentCell = source?.SelectedItem as TaskModel;
+            var currentCell = source?.SelectedItem as CurrentTaskItem;
 
             actionSheet.Clicked += delegate (object a, UIButtonEventArgs but)
             {
@@ -122,11 +122,11 @@ namespace ToDoListManagerAI.iOS.Views.Tabs
         public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
         {
             var tasksData = GetItemAt(indexPath);
-            var oldModel = (TaskModel)tasksData;
+            var oldModel = (CurrentTaskItem)tasksData;
             var model = new TaskItem()
             {
                 Status = oldModel.Status,
-                Deadline = oldModel.Deadline.ToString("MM/dd/yyyy hh:mm tt")
+                Deadline = oldModel.Deadline
             };
             switch (model.Status)
             {

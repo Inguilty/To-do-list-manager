@@ -27,7 +27,7 @@ namespace TodoListManager.Core.ViewModels
         private readonly IMvxNavigationService _service;
         private readonly IDbService _dataService;
 
-        private TaskModel _currentTask;
+        private CurrentTaskItem _currentTask;
         public string TaskTitle
         {
             get => _taskTitle;
@@ -96,7 +96,7 @@ namespace TodoListManager.Core.ViewModels
             else if (_status == 2)
                 stat = Enums.TaskStatus.Done;
 
-            var item = _dataService.GetItem<TaskModel>(_currentTask.Id);
+            var item = _dataService.GetItem<TaskModel>(_currentTask.UserId);
 
             item.Title = TaskTitle;
             item.Description = this.Description;
@@ -121,7 +121,7 @@ namespace TodoListManager.Core.ViewModels
             {
                 if (args.ButtonIndex == 0)
                 {
-                    _dataService.DeleteItem<TaskModel>(_currentTask.Id);
+                    _dataService.DeleteItem<TaskModel>(_currentTask.UserId);
                     ViewDispose(this);
                 }
             };
@@ -145,7 +145,7 @@ namespace TodoListManager.Core.ViewModels
             TaskTitle = parameter.Task.Title;
             Description = parameter.Task.Description;
             TskStatus = stat;
-            Deadline = parameter.Task.Deadline;
+            Deadline = parameter.Task.DtDeadline;
             base.Prepare();
         }
     }
