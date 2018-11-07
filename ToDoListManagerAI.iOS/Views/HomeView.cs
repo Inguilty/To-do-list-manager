@@ -43,7 +43,7 @@ namespace ToDoListManagerAI.iOS.Views
 
             var filePickerService = Mvx.IoCProvider.Resolve<IFilePickerService>();
             var navigationService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
-            var rssService = Mvx.IoCProvider.Resolve<IRssService>();
+            var rssService = Mvx.IoCProvider.Resolve<IJsonService>();
             var dbService = Mvx.IoCProvider.Resolve<IDbService>();
 
             var tabBarViewControllers = new[]

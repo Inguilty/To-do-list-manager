@@ -9,11 +9,11 @@ using TodoListManager.Core.Models;
 
 namespace TodoListManager.Core.Services
 {
-    public class RssService : IRssService
+    public class JsonService : IJsonService
     {
         private readonly string _apiBaseUrl;
 
-        public RssService()
+        public JsonService()
         {
             _apiBaseUrl = Constants.ApiBaseUrl;
         }

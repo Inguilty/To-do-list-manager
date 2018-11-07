@@ -4,7 +4,7 @@ using TodoListManager.Core.Models;
 
 namespace TodoListManager.Core.Services
 {
-    public interface IRssService
+    public interface IJsonService
     {
         Task<IEnumerable<NewsModel>> GetFeedsAsync();
     }

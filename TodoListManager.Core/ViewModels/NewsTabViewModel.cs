@@ -13,21 +13,19 @@ namespace TodoListManager.Core.ViewModels
 {
     public class NewsTabViewModel : BaseViewModel<UserModel>
     {
-        public NewsTabViewModel(IMvxNavigationService navigationService, IRssService rss)
+        public NewsTabViewModel(IMvxNavigationService navigationService, IJsonService json)
             : base(navigationService)
         {
             Title = "News";
-            _rssService = rss;
+            _jsonService = json;
             News = new MvxObservableCollection<NewsModel>();
         }
 
-        #region Fields
+        #region Fields and Properties
         private UserModel _user;
-        private readonly IRssService _rssService;
+        private readonly IJsonService _jsonService;
         private MvxObservableCollection<NewsModel> _news;
         public MvxObservableCollection<NewsModel> News
-        #endregion
-
         {
             get => _news;
             set
@@ -36,6 +34,7 @@ namespace TodoListManager.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+        #endregion
 
         public override void Prepare(UserModel parameter)
         {
@@ -44,7 +43,7 @@ namespace TodoListManager.Core.ViewModels
 
         public override async Task Initialize()
         {
-            var newsList = await _rssService.GetFeedsAsync();
+            var newsList = await _jsonService.GetFeedsAsync();
             foreach (var item in newsList.ToList())
             {
                 News.Add(new NewsModel()
