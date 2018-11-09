@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="ToDoListManagerAI.iOS.AppDelegate" Collapsed="true">
+    <Position X="1.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAQAAAAAAoAAAAAAQAAAAAAAAAAKAAAAAA=</HashCode>
+      <FileName>AppDelegate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.LinkerPleaseInclude" Collapsed="true">
+    <Position X="7" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinkerPleaseInclude.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Application" Collapsed="true">
+    <Position X="3.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Main.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Setup" Collapsed="true">
+    <Position X="3.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Services.FilePickerService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAIAAAAJAAAAAA=</HashCode>
+      <FileName>Services\FilePickerService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Services.ProgressDialogHandle" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAIAAAAAAAAAAAAAAAAAAAAAAEAAAABCAAAA=</HashCode>
+      <FileName>Services\ProgressDialogHandle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Utils.SQLite_iOS" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\SQLite_iOS.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Cells.NewsTableViewCell" Collapsed="true">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAIAAAQAAAAQAgAAAAAgAAAAAAACAAAAAAAADAAA=</HashCode>
+      <FileName>Views\Cells\NewsTableViewCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Cells.TasksTableViewCell" Collapsed="true">
+    <Position X="8.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAQAgAAEAAgAAAAAAABAAAAQQAADAAA=</HashCode>
+      <FileName>Views\Cells\TasksTableViewCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Cells.TaskItem" Collapsed="true">
+    <Position X="7" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Views\Cells\TasksTableViewCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.HomeView" Collapsed="true">
+    <Position X="5.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAIAAAAAAAAAAAAAAAAAAAABAAAEAAAACAAA=</HashCode>
+      <FileName>Views\HomeView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.LoginView" Collapsed="true">
+    <Position X="8.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAIAAACAAAAACAAAAAAAIAkAAAAAAAiACAAA=</HashCode>
+      <FileName>Views\LoginView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.RegistrationView" Collapsed="true">
+    <Position X="1.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAQgBBIAAAJgAAAAiAAgAAAAAAAEACAAA=</HashCode>
+      <FileName>Views\RegistrationView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Tabs.CreateTaskTabView" Collapsed="true">
+    <Position X="5.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAIAAAAAACAAABAAAAAAAAAAIBAAAcAACAAA=</HashCode>
+      <FileName>Views\Tabs\CreateTaskTabView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Tabs.EditPasswordTabView" Collapsed="true">
+    <Position X="8.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAIAAACEAAAAAAAAAAAAAAAAAAIIAAAICAAA=</HashCode>
+      <FileName>Views\Tabs\EditPasswordTabView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Tabs.EditTaskTabView" Collapsed="true">
+    <Position X="1.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAIAAAAAACAAABAAAAAAAABBIAAAAMAkCAgA=</HashCode>
+      <FileName>Views\Tabs\EditTaskTabView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Tabs.NewsTabView" Collapsed="true">
+    <Position X="5.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAEMBAAAAEABAAAABAAAAAAAAAAAEAQAACAAA=</HashCode>
+      <FileName>Views\Tabs\NewsTabView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Tabs.CustomSimpleTableViewSource" Collapsed="true">
+    <Position X="7" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Views\Tabs\NewsTabView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Tabs.ProfileTabView" Collapsed="true">
+    <Position X="7" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAIgAAiABIAAABIQAAAigAIAQAAAAAAACAAA=</HashCode>
+      <FileName>Views\Tabs\ProfileTabView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Tabs.TasksTabView" Collapsed="true">
+    <Position X="1.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAMAAAAAAAAAAAIQAAACAAAAAAAEAQAACAEA=</HashCode>
+      <FileName>Views\Tabs\TasksTabView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoListManagerAI.iOS.Views.Tabs.MySimpleTableViewSource" Collapsed="true">
+    <Position X="1.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Views\Tabs\TasksTabView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

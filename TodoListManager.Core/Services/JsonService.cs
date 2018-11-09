@@ -18,7 +18,7 @@ namespace TodoListManager.Core.Services
             _apiBaseUrl = Constants.ApiBaseUrl;
         }
 
-        private async Task<string> GetRssJsonAsync()
+        private async Task<string> GetJsonAsync()
         {
             var requestUri = new Uri($"{_apiBaseUrl}");
             using (var client = new HttpClient())
@@ -32,7 +32,7 @@ namespace TodoListManager.Core.Services
 
         public async Task<IEnumerable<NewsModel>> GetFeedsAsync()
         {
-            var json = await GetRssJsonAsync();
+            var json = await GetJsonAsync();
             var jObject = (JObject)JsonConvert.DeserializeObject<object>(json);
 
             var items = jObject["articles"]
@@ -43,8 +43,7 @@ namespace TodoListManager.Core.Services
                     Link = j["url"].ToString(),
                     PublicationDate = j["publishedAt"].ToString(),                   
                     Picture = j["urlToImage"].ToString()
-                })
-                .ToList();
+                }).ToList();
             return items;
         }
     }
