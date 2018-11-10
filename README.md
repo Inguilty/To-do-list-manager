@@ -7,5 +7,5 @@ This app can:
    class, all services are inherited from other ViewModels, all was written in according with common code style, all methods and fields      has their right access modifier.
 4. In this project was implemented a lot of things: SQL-requests, regular expressions, enums, generic methods and collections,
    delegates and events, LINQ expressions, data binding (via specific MvvmCross form), dispose of threads, attributes, late binding,  
-   asynchronous requests, parsing data stored in JSON from news API, services to interact with database, also in this project was 
+  asynchronous requests, parsing data stored in JSON from news API, services to interact with database, also in this project was 
    implemented service to get access to the system in order add/change profile picture.
